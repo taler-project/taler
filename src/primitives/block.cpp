@@ -10,16 +10,24 @@
 #include "utilstrencodings.h"
 #include "crypto/common.h"
 #include "crypto/scrypt.h"
+#include "crypto/Lyra2Z/Lyra2Z.h"
+#include "chainparams.h"
 
 uint256 CBlockHeader::GetHash() const
 {
     return SerializeHash(*this);
 }
 
-uint256 CBlockHeader::GetPoWHash() const
+uint256 CBlockHeader::GetPoWHash(int nHeight) const
 {
+	const Consensus::Params& params = Params().GetConsensus();
     uint256 thash;
-    scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+	
+	if (nHeight >= params.nLyra2ZHeight)
+		lyra2z_hash(BEGIN(nVersion), BEGIN(thash));
+	else
+		scrypt_1024_1_1_256(BEGIN(nVersion), BEGIN(thash));
+	
     return thash;
 }
 
