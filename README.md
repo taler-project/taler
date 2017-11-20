@@ -3,7 +3,7 @@ Taler Core integration/staging tree
 
 [![Build Status](https://travis-ci.org/taler-project/taler.svg?branch=master)](https://travis-ci.org/taler-project/taler)
 
-https://taler.org
+https://taler.site
 
 What is Taler?
 ----------------
