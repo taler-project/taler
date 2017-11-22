@@ -15,7 +15,7 @@ out collectively by the network. Taler Core is the name of open source
 software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the Taler Core software, see [https://taler.org](https://taler.org).
+the Taler Core software, see [https://taler.site](https://taler.site).
 
 License
 -------
