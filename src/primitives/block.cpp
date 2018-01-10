@@ -3,24 +3,22 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "primitives/block.h"
+#include "../primitives/block.h"
 
-#include "hash.h"
-#include "tinyformat.h"
-#include "utilstrencodings.h"
-#include "crypto/common.h"
-#include "crypto/scrypt.h"
-#include "crypto/Lyra2Z/Lyra2Z.h"
-#include "chainparams.h"
+#include "../tinyformat.h"
+#include "../crypto/scrypt.h"
+#include "../crypto/Lyra2Z/Lyra2Z.h"
+#include "../chainparams.h"
+#include "../utilstrencodings.h"
+#include "../hash.h"
 
 uint256 CBlockHeader::GetHash() const
 {
     return SerializeHash(*this);
 }
 
-uint256 CBlockHeader::GetPoWHash(int nHeight) const
+uint256 CBlockHeader::GetPoWHash(int nHeight, const Consensus::Params& params) const
 {
-	const Consensus::Params& params = Params().GetConsensus();
     uint256 thash;
 	
 	if (nHeight >= params.nLyra2ZHeight)

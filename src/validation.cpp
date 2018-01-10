@@ -1001,7 +1001,7 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex, const Consensus
     }
 
     // Check the header
-    if (!CheckProofOfWork(block.GetPoWHash(pindex->nHeight), pindex->nHeight, block.nBits, consensusParams))
+    if (!CheckProofOfWork(block.GetPoWHash(pindex->nHeight, consensusParams), pindex->nHeight, block.nBits, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pindex->GetBlockPos().ToString());	
 
     if (block.GetHash() != pindex->GetBlockHash())
@@ -2762,7 +2762,7 @@ static bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state,
 	}
 	
     // Check proof of work matches claimed amount
-    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(nHeight), nHeight, block.nBits, consensusParams))
+    if (fCheckPOW && !CheckProofOfWork(block.GetPoWHash(nHeight, consensusParams), nHeight, block.nBits, consensusParams))
         return state.DoS(50, false, REJECT_INVALID, "high-hash", false, "proof of work failed");
 
     return true;
