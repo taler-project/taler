@@ -3,7 +3,7 @@ Taler Core integration/staging tree
 
 [![Build Status](https://travis-ci.org/taler-project/taler.svg?branch=master)](https://travis-ci.org/taler-project/taler)
 
-https://taler.site
+https://talercrypto.com
 
 What is Taler?
 ----------------
@@ -15,7 +15,7 @@ out collectively by the network. Taler Core is the name of open source
 software which enables the use of this currency.
 
 For more information, as well as an immediately useable, binary version of
-the Taler Core software, see [https://taler.site](https://taler.site).
+the Taler Core software, see [https://talercrypto.com](https://talercrypto.com).
 
 License
 -------
