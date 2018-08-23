@@ -121,8 +121,8 @@ public:
         assert(genesis.hashMerkleRoot     == uint256S("0x985fae483ebbef9cde04a259282cb7465d52bf56824caf1a8132395e90488b12"));
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("dnsseed.taler.site", true);
-		vSeeds.emplace_back("dnsseed.taler.host", true);
+        vSeeds.emplace_back("dnsseed.talercrypto.com", true);
+	vSeeds.emplace_back("dnsseed.taler.host", true);
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
@@ -193,7 +193,7 @@ public:
         pchMessageStart[0] = 0xfd;
         pchMessageStart[1] = 0xd2;
         pchMessageStart[2] = 0xc8;
-		pchMessageStart[3] = 0x07;
+        pchMessageStart[3] = 0x07;
         nDefaultPort = 18333;
         nPruneAfterHeight = 1000;
 		
