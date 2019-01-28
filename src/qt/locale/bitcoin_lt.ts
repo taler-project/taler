@@ -44,10 +44,6 @@
     </context>
 <context>
     <name>AddressTableModel</name>
-    <message>
-        <source>Address</source>
-        <translation>Adresas</translation>
-    </message>
     </context>
 <context>
     <name>AskPassphraseDialog</name>
@@ -76,7 +72,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Pasirašyti ži&amp;nutę...</translation>
@@ -116,10 +112,6 @@
     <message>
         <source>&amp;About %1</source>
         <translation>&amp;Apie %1</translation>
-    </message>
-    <message>
-        <source>Show information about %1</source>
-        <translation>Rodyti informaciją apie %1</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -252,12 +244,6 @@
     <message>
         <source>Catching up...</source>
         <translation>Vejamasi...</translation>
-    </message>
-    <message>
-        <source>Date: %1
-</source>
-        <translation>Data: %1
-</translation>
     </message>
     <message>
         <source>Sent transaction</source>
@@ -730,10 +716,6 @@
         <source>Copy &amp;Address</source>
         <translation>&amp;Kopijuoti adresą</translation>
     </message>
-    <message>
-        <source>Address</source>
-        <translation>Adresas</translation>
-    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
@@ -918,10 +900,6 @@
     </context>
 <context>
     <name>TransactionView</name>
-    <message>
-        <source>Address</source>
-        <translation>Adresas</translation>
-    </message>
     </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
@@ -936,7 +914,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Parinktys:</translation>

@@ -41,61 +41,9 @@
         <source>&amp;Delete</source>
         <translation>&amp;Şterge</translation>
     </message>
-    <message>
-        <source>C&amp;hoose</source>
-        <translation>&amp;Alegeţi</translation>
-    </message>
-    <message>
-        <source>Sending addresses</source>
-        <translation>Adresa destinatarului</translation>
-    </message>
-    <message>
-        <source>Receiving addresses</source>
-        <translation>Adresa de primire</translation>
-    </message>
-    <message>
-        <source>These are your Taler addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>Acestea sunt adresele tale Taler pentru efectuarea platilor. Intotdeauna verifica atent suma de plata si adresa beneficiarului inainte de a trimite monede.</translation>
-    </message>
-    <message>
-        <source>These are your Taler addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>Acestea sunt adresele tale Taler pentru receptionarea platilor. Este recomandat sa folosesti mereu o adresa noua pentru primirea platilor.</translation>
-    </message>
-    <message>
-        <source>&amp;Copy Address</source>
-        <translation>&amp;Copiază adresa</translation>
-    </message>
-    <message>
-        <source>Copy &amp;Label</source>
-        <translation>Copiaza si eticheteaza</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation>&amp;Editare</translation>
-    </message>
-    <message>
-        <source>Export Address List</source>
-        <translation>Exportă listă de adrese</translation>
-    </message>
-    <message>
-        <source>Comma separated file (*.csv)</source>
-        <translation>Fisier .csv cu separator - virgula</translation>
-    </message>
-    <message>
-        <source>Exporting Failed</source>
-        <translation>Exportarea a eșuat</translation>
-    </message>
     </context>
 <context>
     <name>AddressTableModel</name>
-    <message>
-        <source>Label</source>
-        <translation>Etichetă</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Adresă</translation>
-    </message>
     </context>
 <context>
     <name>AskPassphraseDialog</name>
@@ -115,30 +63,6 @@
         <source>Repeat new passphrase</source>
         <translation>Repetaţi noua frază de acces</translation>
     </message>
-    <message>
-        <source>Encrypt wallet</source>
-        <translation>Criptare portofel</translation>
-    </message>
-    <message>
-        <source>Unlock wallet</source>
-        <translation>Deblocare portofel</translation>
-    </message>
-    <message>
-        <source>Decrypt wallet</source>
-        <translation>Decriptare portofel</translation>
-    </message>
-    <message>
-        <source>Change passphrase</source>
-        <translation>Schimbă parola</translation>
-    </message>
-    <message>
-        <source>Confirm wallet encryption</source>
-        <translation>Confirmaţi criptarea portofelului</translation>
-    </message>
-    <message>
-        <source>Wallet encrypted</source>
-        <translation>Portofel criptat</translation>
-    </message>
     </context>
 <context>
     <name>BanTableModel</name>
@@ -152,7 +76,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Semnează &amp;mesaj...</translation>
@@ -306,8 +230,8 @@
         <translation>Bara de unelte</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
-        <translation>Cereţi plăţi (generează coduri QR şi taler-uri: URls)</translation>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
+        <translation>Cereţi plăţi (generează coduri QR şi Taler-uri: URls)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -318,8 +242,8 @@
         <translation>Arată lista de adrese pentru primire şi etichetele</translation>
     </message>
     <message>
-        <source>Open a taler: URI or payment request</source>
-        <translation>Deschidere taler: o adresa URI sau o cerere de plată</translation>
+        <source>Open a Taler: URI or payment request</source>
+        <translation>Deschidere Taler: o adresa URI sau o cerere de plată</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -801,7 +725,7 @@
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>Alegeţi subdiviziunea folosită la afişarea interfeţei şi la trimiterea de taler.</translation>
+        <translation>Alegeţi subdiviziunea folosită la afişarea interfeţei şi la trimiterea de Taler.</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -841,7 +765,7 @@
     </message>
     <message>
         <source>The supplied proxy address is invalid.</source>
-        <translation>Adresa taler pe care aţi specificat-o nu este validă.</translation>
+        <translation>Adresa Taler pe care aţi specificat-o nu este validă.</translation>
     </message>
 </context>
 <context>
@@ -1307,24 +1231,12 @@
         <translation>&amp;Salvează imaginea...</translation>
     </message>
     <message>
-        <source>Address</source>
-        <translation>Adresă</translation>
-    </message>
-    <message>
         <source>Amount</source>
         <translation>Cantitate</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Etichetă</translation>
     </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
-    <message>
-        <source>Label</source>
-        <translation>Etichetă</translation>
-    </message>
     </context>
 <context>
     <name>SendCoinsDialog</name>
@@ -1473,7 +1385,7 @@
     </message>
     <message>
         <source>The Taler address to send the payment to</source>
-        <translation>Adresa taler către care se face plata</translation>
+        <translation>Adresa Taler către care se face plata</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -1500,8 +1412,8 @@
         <translation>Introduceţi eticheta pentru ca această adresa să fie introdusă în lista de adrese folosite</translation>
     </message>
     <message>
-        <source>A message that was attached to the taler: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Taler network.</source>
-        <translation>un mesaj a fost ataşat la taler: URI care va fi stocat cu tranzacţia pentru referinţa dvs. Notă: Acest mesaj nu va fi trimis către reţeaua taler.</translation>
+        <source>A message that was attached to the Taler: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Taler network.</source>
+        <translation>un mesaj a fost ataşat la Taler: URI care va fi stocat cu tranzacţia pentru referinţa dvs. Notă: Acest mesaj nu va fi trimis către reţeaua Taler.</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -1635,29 +1547,9 @@
     </context>
 <context>
     <name>TransactionTableModel</name>
-    <message>
-        <source>Label</source>
-        <translation>Etichetă</translation>
-    </message>
     </context>
 <context>
     <name>TransactionView</name>
-    <message>
-        <source>Comma separated file (*.csv)</source>
-        <translation>Fisier .csv cu separator - virgula</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Etichetă</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Adresă</translation>
-    </message>
-    <message>
-        <source>Exporting Failed</source>
-        <translation>Exportarea a eșuat</translation>
-    </message>
     </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
@@ -1676,7 +1568,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Opţiuni:</translation>

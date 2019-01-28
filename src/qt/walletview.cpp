@@ -1,25 +1,27 @@
-// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "walletview.h"
+#include <qt/walletview.h>
 
-#include "addressbookpage.h"
-#include "askpassphrasedialog.h"
-#include "bitcoingui.h"
-#include "clientmodel.h"
-#include "guiutil.h"
-#include "optionsmodel.h"
-#include "overviewpage.h"
-#include "platformstyle.h"
-#include "receivecoinsdialog.h"
-#include "sendcoinsdialog.h"
-#include "signverifymessagedialog.h"
-#include "transactiontablemodel.h"
-#include "transactionview.h"
-#include "walletmodel.h"
+#include <qt/addressbookpage.h>
+#include <qt/askpassphrasedialog.h>
+#include <qt/bitcoingui.h>
+#include <qt/clientmodel.h>
+#include <qt/guiutil.h>
+#include <qt/optionsmodel.h>
+#include <qt/overviewpage.h>
+#include <qt/platformstyle.h>
+#include <qt/receivecoinsdialog.h>
+#include <qt/sendcoinsdialog.h>
+#include <qt/signverifymessagedialog.h>
+#include <qt/transactiontablemodel.h>
+#include <qt/transactionview.h>
+#include <qt/walletmodel.h>
+#include <qt/mainmenupanel.h>
+#include <qt/stockinfo.h>
 
-#include "ui_interface.h"
+#include <ui_interface.h>
 
 #include <QAction>
 #include <QActionGroup>
@@ -35,21 +37,27 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     walletModel(0),
     platformStyle(_platformStyle)
 {
+    setContentsMargins(0,0,0,0);
+
     // Create tabs
     overviewPage = new OverviewPage(platformStyle);
+    overviewPage->setContentsMargins(0,0,0,0);
 
     transactionsPage = new QWidget(this);
+    transactionsPage->setContentsMargins(0,0,0,0);
+    transactionsPage->setStyleSheet("background-color: #e8e8e8;");
     QVBoxLayout *vbox = new QVBoxLayout();
+    vbox->setContentsMargins(0,0,0,0);
     QHBoxLayout *hbox_buttons = new QHBoxLayout();
     transactionView = new TransactionView(platformStyle, this);
     vbox->addWidget(transactionView);
-    QPushButton *exportButton = new QPushButton(tr("&Export"), this);
-    exportButton->setToolTip(tr("Export the data in the current tab to a file"));
-    if (platformStyle->getImagesOnButtons()) {
-        exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
-    }
+    //QPushButton *exportButton = new QPushButton(tr("&Export"), this);
+    //exportButton->setToolTip(tr("Export the data in the current tab to a file"));
+    //if (platformStyle->getImagesOnButtons()) {
+    //    exportButton->setIcon(platformStyle->SingleColorIcon(":/icons/export"));
+    ///}
     hbox_buttons->addStretch();
-    hbox_buttons->addWidget(exportButton);
+    //hbox_buttons->addWidget(exportButton);
     vbox->addLayout(hbox_buttons);
     transactionsPage->setLayout(vbox);
 
@@ -72,7 +80,7 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
     connect(transactionView, SIGNAL(doubleClicked(QModelIndex)), transactionView, SLOT(showDetails()));
 
     // Clicking on "Export" allows to export the transaction list
-    connect(exportButton, SIGNAL(clicked()), transactionView, SLOT(exportClicked()));
+    //connect(exportButton, SIGNAL(clicked()), transactionView, SLOT(exportClicked()));
 
     // Pass through messages from sendCoinsPage
     connect(sendCoinsPage, SIGNAL(message(QString,QString,unsigned int)), this, SIGNAL(message(QString,QString,unsigned int)));
@@ -82,6 +90,24 @@ WalletView::WalletView(const PlatformStyle *_platformStyle, QWidget *parent):
 
 WalletView::~WalletView()
 {
+}
+
+void WalletView::addPriceWidget(StockInfo* stockInfo)
+{
+    overviewPage->addPriceWidget(stockInfo);
+    transactionView->addPriceWidget(stockInfo);
+    receiveCoinsPage->addPriceWidget(stockInfo);
+    sendCoinsPage->addPriceWidget(stockInfo);
+}
+
+void WalletView::connectMainMenu(MainMenuPanel* _mainMenu)
+{
+    overviewPage->connectMainMenu(_mainMenu);
+}
+
+void WalletView::setSyncProgress(double value, double max)
+{
+    overviewPage->setSyncProgress(value, max);
 }
 
 void WalletView::setBitcoinGUI(BitcoinGUI *gui)
@@ -122,8 +148,8 @@ void WalletView::setWalletModel(WalletModel *_walletModel)
     overviewPage->setWalletModel(_walletModel);
     receiveCoinsPage->setModel(_walletModel);
     sendCoinsPage->setModel(_walletModel);
-    usedReceivingAddressesPage->setModel(_walletModel->getAddressTableModel());
-    usedSendingAddressesPage->setModel(_walletModel->getAddressTableModel());
+    usedReceivingAddressesPage->setModel(_walletModel ? _walletModel->getAddressTableModel() : nullptr);
+    usedSendingAddressesPage->setModel(_walletModel ? _walletModel->getAddressTableModel() : nullptr);
 
     if (_walletModel)
     {

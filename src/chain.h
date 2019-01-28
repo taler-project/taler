@@ -1,16 +1,17 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_CHAIN_H
 #define BITCOIN_CHAIN_H
 
-#include "arith_uint256.h"
-#include "primitives/block.h"
-#include "pow.h"
-#include "tinyformat.h"
-#include "uint256.h"
+#include <arith_uint256.h>
+#include <primitives/block.h>
+#include <pow.h>
+#include <tinyformat.h>
+#include <uint256.h>
+#include <chainparams.h>
 
 #include <vector>
 
@@ -182,6 +183,9 @@ public:
     //! height of the entry in the chain. The genesis block has height 0
     int nHeight;
 
+    //! count of pow blocks.
+    int nPowHeight;
+
     //! Which # file this block is stored in (blk?????.dat)
     int nFile;
 
@@ -204,20 +208,67 @@ public:
     unsigned int nChainTx;
 
     //! Verification status of this block. See enum BlockStatus
-    unsigned int nStatus;
+    uint32_t nStatus;
 
     //! block header
-    int nVersion;
+    int32_t nVersion;
     uint256 hashMerkleRoot;
-    unsigned int nTime;
-    unsigned int nBits;
-    unsigned int nNonce;
+    uint32_t nTime;
+    uint32_t nBits;
+    uint32_t nNonce; 
 
     //! (memory only) Sequential id assigned to distinguish order in which blocks are received.
     int32_t nSequenceId;
 
-    //! (memory only) Maximum nTime in the chain upto and including this block.
+    //! (memory only) Maximum nTime in the chain up to and including this block.
     unsigned int nTimeMax;
+
+    //pos
+    uint32_t nFlags; // block index flags
+    uint64_t nStakeModifier; // hash modifier for proof-of-stake
+    uint32_t nStakeModifierChecksum; // checksum of index; in-memory only
+    uint256 hashProofOfStake;
+    COutPoint outStakeReward; // coinbase output of proof-of-stake block
+
+    bool IsProofOfWork() const
+    {
+        return !(nFlags & BLOCK_PROOF_OF_STAKE);
+    }
+
+    bool IsProofOfStake() const
+    {
+        return (nFlags & BLOCK_PROOF_OF_STAKE);
+    }
+
+    void SetProofOfStake()
+    {
+        nFlags |= BLOCK_PROOF_OF_STAKE;
+    }
+
+    uint32_t GetStakeEntropyBit() const
+    {
+        return ((nFlags & BLOCK_STAKE_ENTROPY) >> 1);
+    }
+
+    bool SetStakeEntropyBit(uint32_t nEntropyBit)
+    {
+        if (nEntropyBit > 1)
+            return false;
+        nFlags |= (nEntropyBit ? BLOCK_STAKE_ENTROPY : 0);
+        return true;
+    }
+
+    bool GeneratedStakeModifier() const
+    {
+        return (nFlags & BLOCK_STAKE_MODIFIER);
+    }
+
+    void SetStakeModifier(uint64_t nModifier, bool fGeneratedStakeModifier)
+    {
+        nStakeModifier = nModifier;
+        if (fGeneratedStakeModifier)
+            nFlags |= BLOCK_STAKE_MODIFIER;
+    }
 
     void SetNull()
     {
@@ -225,6 +276,7 @@ public:
         pprev = nullptr;
         pskip = nullptr;
         nHeight = 0;
+        nPowHeight = 0;
         nFile = 0;
         nDataPos = 0;
         nUndoPos = 0;
@@ -240,6 +292,12 @@ public:
         nTime          = 0;
         nBits          = 0;
         nNonce         = 0;
+
+        nFlags = 0;
+        nStakeModifier = 0;
+        nStakeModifierChecksum = 0;
+        hashProofOfStake = uint256();
+        outStakeReward.SetNull();
     }
 
     CBlockIndex()
@@ -247,7 +305,7 @@ public:
         SetNull();
     }
 
-    CBlockIndex(const CBlockHeader& block)
+    explicit CBlockIndex(const CBlockHeader& block)
     {
         SetNull();
 
@@ -256,6 +314,7 @@ public:
         nTime          = block.nTime;
         nBits          = block.nBits;
         nNonce         = block.nNonce;
+        nFlags         = block.nFlags;
     }
 
     CDiskBlockPos GetBlockPos() const {
@@ -286,6 +345,7 @@ public:
         block.nTime          = nTime;
         block.nBits          = nBits;
         block.nNonce         = nNonce;
+        block.nFlags         = (nFlags & BLOCK_PROOF_OF_STAKE) | (nFlags & BLOCK_NEW_FORMAT);
         return block;
     }
 
@@ -304,7 +364,7 @@ public:
         return (int64_t)nTimeMax;
     }
 
-    enum { nMedianTimeSpan=11 };
+    static constexpr int nMedianTimeSpan = 11;
 
     int64_t GetMedianTimePast() const
     {
@@ -322,10 +382,13 @@ public:
 
     std::string ToString() const
     {
-        return strprintf("CBlockIndex(pprev=%p, nHeight=%d, merkle=%s, hashBlock=%s)",
-            pprev, nHeight,
-            hashMerkleRoot.ToString(),
-            GetBlockHash().ToString());
+        return strprintf("CBlockIndex(nprev=%08x, nFile=%d, nHeight=%d, nPowHeight=%d, nFlags=(%s)(%d)(%s), nStakeModifier=%016llx, nStakeModifierChecksum=%08x, hashProofOfStake=%s, merkle=%s, hashBlock=%s)",
+            pprev, nFile, nHeight, nPowHeight,
+            GeneratedStakeModifier() ? "MOD" : "-", GetStakeEntropyBit(), IsProofOfStake()? "PoS" : "PoW",
+            nStakeModifier, nStakeModifierChecksum,
+            hashProofOfStake.ToString().c_str(),
+            hashMerkleRoot.ToString().substr(0,10).c_str(),
+            GetBlockHash().ToString().substr(0,20).c_str());
     }
 
     //! Check whether this block index entry is valid up to the passed validity level.
@@ -357,6 +420,7 @@ public:
     //! Efficiently find an ancestor of this block.
     CBlockIndex* GetAncestor(int height);
     const CBlockIndex* GetAncestor(int height) const;
+    const CBlockIndex* GetPowAncestor(int powHeight) const;
 };
 
 arith_uint256 GetBlockProof(const CBlockIndex& block);
@@ -398,6 +462,30 @@ public:
         if (nStatus & BLOCK_HAVE_UNDO)
             READWRITE(VARINT(nUndoPos));
 
+        READWRITE(nFlags);
+        READWRITE(nStakeModifier);
+        if (!Params().isLegacyBlock(nHeight))
+        {
+            if (IsProofOfStake()) {
+                READWRITE(hashProofOfStake);
+                READWRITE(outStakeReward);
+            }
+            else if (ser_action.ForRead()) {
+                const_cast<CDiskBlockIndex*>(this)->hashProofOfStake = uint256();
+                const_cast<CDiskBlockIndex*>(this)->outStakeReward.SetNull();
+            }
+            READWRITE(VARINT(nPowHeight));
+        }
+        else
+        {
+            if (ser_action.ForRead())
+            {
+                hashProofOfStake = uint256();
+                nPowHeight = nHeight;
+                outStakeReward.SetNull();
+            }
+        }
+
         // block header
         READWRITE(this->nVersion);
         READWRITE(hashPrev);
@@ -416,6 +504,7 @@ public:
         block.nTime           = nTime;
         block.nBits           = nBits;
         block.nNonce          = nNonce;
+        block.nFlags          = (nFlags & BLOCK_PROOF_OF_STAKE);
         return block.GetHash();
     }
 

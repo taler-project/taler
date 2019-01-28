@@ -64,7 +64,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Firmar &amp;Mensaje...</translation>
@@ -143,7 +143,7 @@
     </message>
     <message>
         <source>Send coins to a Taler address</source>
-        <translation>Enviar monedas a una dirección taler</translation>
+        <translation>Enviar monedas a una dirección Taler</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -206,8 +206,8 @@
         <translation>Barra de pestañas</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
-        <translation>Pide pagos (genera codigos QR and taler: URls)</translation>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
+        <translation>Pide pagos (genera codigos QR and Taler: URls)</translation>
     </message>
     <message>
         <source>Error</source>
@@ -750,7 +750,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Opciones:
@@ -773,7 +773,7 @@
     </message>
     <message>
         <source>Taler Core</source>
-        <translation>taler core</translation>
+        <translation>Taler core</translation>
     </message>
     <message>
         <source>Error loading block database</source>

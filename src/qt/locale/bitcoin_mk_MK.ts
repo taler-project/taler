@@ -64,7 +64,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Потпиши &amp;порака...</translation>
@@ -139,7 +139,7 @@
     </message>
     <message>
         <source>Send coins to a Taler address</source>
-        <translation>Испрати биткоини на Биткоин адреса</translation>
+        <translation>Испрати TLR на Taler адреса</translation>
     </message>
     <message>
         <source>&amp;Verify message...</source>
@@ -572,7 +572,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Опции:</translation>

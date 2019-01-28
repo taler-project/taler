@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_RECEIVECOINSDIALOG_H
 #define BITCOIN_QT_RECEIVECOINSDIALOG_H
 
-#include "guiutil.h"
+#include <qt/guiutil.h>
 
 #include <QDialog>
 #include <QHeaderView>
@@ -17,6 +17,7 @@
 
 class PlatformStyle;
 class WalletModel;
+class StockInfo;
 
 namespace Ui {
     class ReceiveCoinsDialog;
@@ -33,9 +34,9 @@ class ReceiveCoinsDialog : public QDialog
 
 public:
     enum ColumnWidths {
-        DATE_COLUMN_WIDTH = 130,
+        DATE_COLUMN_WIDTH = 140,
         LABEL_COLUMN_WIDTH = 120,
-        AMOUNT_MINIMUM_COLUMN_WIDTH = 180,
+        AMOUNT_MINIMUM_COLUMN_WIDTH = 190,
         MINIMUM_COLUMN_WIDTH = 130
     };
 
@@ -43,7 +44,7 @@ public:
     ~ReceiveCoinsDialog();
 
     void setModel(WalletModel *model);
-
+    void addPriceWidget(StockInfo* stockInfo);
 public Q_SLOTS:
     void clear();
     void reject();

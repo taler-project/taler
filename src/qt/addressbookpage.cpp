@@ -1,20 +1,22 @@
-// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #if defined(HAVE_CONFIG_H)
-#include "config/bitcoin-config.h"
+#include <config/bitcoin-config.h>
 #endif
 
-#include "addressbookpage.h"
-#include "ui_addressbookpage.h"
+#include <wallet/wallet.h>
 
-#include "addresstablemodel.h"
-#include "bitcoingui.h"
-#include "csvmodelwriter.h"
-#include "editaddressdialog.h"
-#include "guiutil.h"
-#include "platformstyle.h"
+#include <qt/addressbookpage.h>
+#include <qt/forms/ui_addressbookpage.h>
+
+#include <qt/addresstablemodel.h>
+#include <qt/bitcoingui.h>
+#include <qt/csvmodelwriter.h>
+#include <qt/editaddressdialog.h>
+#include <qt/guiutil.h>
+#include <qt/platformstyle.h>
 
 #include <QIcon>
 #include <QMenu>
@@ -67,11 +69,11 @@ AddressBookPage::AddressBookPage(const PlatformStyle *platformStyle, Mode _mode,
     switch(tab)
     {
     case SendingTab:
-        ui->labelExplanation->setText(tr("These are your Taler addresses for sending payments. Always check the amount and the receiving address before sending coins."));
+        ui->labelExplanation->setText(tr("These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins."));
         ui->deleteAddress->setVisible(true);
         break;
     case ReceivingTab:
-        ui->labelExplanation->setText(tr("These are your Taler addresses for receiving payments. It is recommended to use a new receiving address for each transaction."));
+        ui->labelExplanation->setText(tr("These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction."));
         ui->deleteAddress->setVisible(false);
         break;
     }
@@ -142,12 +144,29 @@ void AddressBookPage::setModel(AddressTableModel *_model)
     ui->tableView->horizontalHeader()->setSectionResizeMode(AddressTableModel::Label, QHeaderView::Stretch);
     ui->tableView->horizontalHeader()->setSectionResizeMode(AddressTableModel::Address, QHeaderView::ResizeToContents);
 #endif
-
+    //
     connect(ui->tableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
         this, SLOT(selectionChanged()));
 
     // Select row for newly created address
     connect(_model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(selectNewAddress(QModelIndex,int,int)));
+
+    if(tab == ReceivingTab)
+    {
+        ui->newAddressComboBox->setVisible(true);
+        //
+        ui->newAddressComboBox->clear();
+        ui->newAddressComboBox->addItem("Legacy");
+        ui->newAddressComboBox->addItem("SegWit");
+        ui->newAddressComboBox->addItem("Bech32");
+        // configure bech32 checkbox, disable if launched with legacy as default:
+        if (model->getDefaultAddressType() == OUTPUT_TYPE_LEGACY     )ui->newAddressComboBox->setCurrentIndex(0);
+        if (model->getDefaultAddressType() == OUTPUT_TYPE_P2SH_SEGWIT)ui->newAddressComboBox->setCurrentIndex(1);
+        if (model->getDefaultAddressType() == OUTPUT_TYPE_BECH32     )ui->newAddressComboBox->setCurrentIndex(2);
+    }else
+    {
+        ui->newAddressComboBox->setVisible(false);
+    }
 
     selectionChanged();
 }
@@ -187,6 +206,17 @@ void AddressBookPage::on_newAddress_clicked()
 {
     if(!model)
         return;
+
+    OutputType address_type = model->getDefaultAddressType();
+    //
+    switch (ui->newAddressComboBox->currentIndex()) {
+    case  0:address_type =OUTPUT_TYPE_LEGACY     ;break;
+    case  1:address_type =OUTPUT_TYPE_P2SH_SEGWIT;break;
+    case  2:address_type =OUTPUT_TYPE_BECH32     ;break;
+    default:address_type =OUTPUT_TYPE_DEFAULT    ;break;
+    }
+    //
+    model->setDefaultAddressType(address_type);
 
     EditAddressDialog dlg(
         tab == SendingTab ?

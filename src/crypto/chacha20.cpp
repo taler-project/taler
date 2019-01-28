@@ -1,12 +1,12 @@
-// Copyright (c) 2017 The Bitcoin Core developers
+// Copyright (c) 2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 // Based on the public domain implementation 'merged' by D. J. Bernstein
 // See https://cr.yp.to/chacha.html.
 
-#include "crypto/common.h"
-#include "crypto/chacha20.h"
+#include <crypto/common.h>
+#include <crypto/chacha20.h>
 
 #include <string.h>
 

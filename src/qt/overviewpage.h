@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_OVERVIEWPAGE_H
 #define BITCOIN_QT_OVERVIEWPAGE_H
 
-#include "amount.h"
+#include <amount.h>
 
 #include <QWidget>
 #include <memory>
@@ -15,6 +15,8 @@ class TransactionFilterProxy;
 class TxViewDelegate;
 class PlatformStyle;
 class WalletModel;
+class MainMenuPanel;
+class StockInfo;
 
 namespace Ui {
     class OverviewPage;
@@ -36,10 +38,16 @@ public:
     void setClientModel(ClientModel *clientModel);
     void setWalletModel(WalletModel *walletModel);
     void showOutOfSyncWarning(bool fShow);
+    void setSyncProgress(double value, double max);
 
+    void connectMainMenu(MainMenuPanel* _mainMenu) { mainMenu = _mainMenu; }
+    void addPriceWidget(StockInfo* stockInfo);
 public Q_SLOTS:
     void setBalance(const CAmount& balance, const CAmount& unconfirmedBalance, const CAmount& immatureBalance,
                     const CAmount& watchOnlyBalance, const CAmount& watchUnconfBalance, const CAmount& watchImmatureBalance);
+
+private:
+    bool drawQR(const QString& address);
 
 Q_SIGNALS:
     void transactionClicked(const QModelIndex &index);
@@ -59,12 +67,16 @@ private:
     TxViewDelegate *txdelegate;
     std::unique_ptr<TransactionFilterProxy> filter;
 
+    MainMenuPanel* mainMenu;
+
 private Q_SLOTS:
     void updateDisplayUnit();
     void handleTransactionClicked(const QModelIndex &index);
     void updateAlerts(const QString &warnings);
     void updateWatchOnlyLabels(bool showWatchOnly);
     void handleOutOfSyncWarningClicks();
+    void onSendClick();
+    void onTransactionsClick();
 };
 
 #endif // BITCOIN_QT_OVERVIEWPAGE_H

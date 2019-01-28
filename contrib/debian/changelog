@@ -36,14 +36,14 @@ bitcoin (0.13.2-trusty1) trusty; urgency=medium
 
 bitcoin (0.13.1-trusty2) trusty; urgency=medium
 
-  * Revert to Qt4, due to https://github.com/bitcoin/bitcoin/issues/9038
+  * Revert to Qt4, due to https://github.com/taler-project/bitcoin/issues/9038
 
  -- Matt Corallo (BlueMatt) <matt@mattcorallo.com>  Mon, 31 Oct 2016 11:16:00 -0400
 
 bitcoin (0.13.1-trusty1) trusty; urgency=medium
 
   * New upstream release.
-  * Backport updated bitcoin-qt.desktop from upstream master
+  * Backport updated taler-qt.desktop from upstream master
   * Add zmq dependency
   * Switch to Qt5 (breaks precise, but that was already broken by C++11)
 
@@ -278,7 +278,7 @@ bitcoin (0.6.1-natty0) natty; urgency=low
 bitcoin (0.6.0-natty0) natty; urgency=low
 
   * New upstream release.
-  * Add GNOME/KDE support for bitcoin-qt's bitcoin: URI support.
+  * Add GNOME/KDE support for taler-qt's bitcoin: URI support.
     Thanks to luke-jr for the KDE .protocol file.
 
  -- Matt Corallo <matt@bluematt.me>  Sat, 31 Mar 2012 15:35:00 -0500
@@ -331,7 +331,7 @@ bitcoin (0.5.0~rc7-natty0) natty; urgency=low
 bitcoin (0.5.0~rc3-natty0) natty; urgency=low
 
   * New upstream release candidate.
-  * Don't set rpcpassword for bitcoin-qt.
+  * Don't set rpcpassword for taler-qt.
 
  -- Matt Corallo <matt@bluematt.me>  Tue, 8 Nov 2011 11:56:00 -0400
 
@@ -354,7 +354,7 @@ bitcoin (0.5.0~rc1-natty0) natty; urgency=low
 
 bitcoin (0.5.0~rc1-2) experimental; urgency=low
 
-  * Add bitcoin-qt
+  * Add taler-qt
 
  -- Matt Corallo <matt@bluematt.me>  Tue, 25 Oct 2011 15:24:18 -0400
 
@@ -446,7 +446,7 @@ bitcoin (0.3.21~dfsg-1) unstable; urgency=low
   * Bump policy compliance to standards-version 3.9.2.
   * Shorten Vcs-Browser paragraph in control file.
   * Fix mention daemon (not CLI tools) in short description.
-  * Stop conflicting with or replace bitcoin-cli: Only transitional, no
+  * Stop conflicting with or replace taler-cli: Only transitional, no
     longer needed.
   * Link against unversioned berkeleydb. Update NEWS and README.Debian
     accordingly (and improve wording while at it).
@@ -471,7 +471,7 @@ bitcoin (0.3.20.2~dfsg-2) unstable; urgency=medium
 bitcoin (0.3.20.2~dfsg-1) unstable; urgency=low
 
   * New upstream release.
-  * Fix provide and replace former package name bitcoin-cli.
+  * Fix provide and replace former package name taler-cli.
     Closes: bug#618439. Thanks to Shane Wegner.
 
  -- Jonas Smedegaard <dr@jones.dk>  Tue, 15 Mar 2011 11:41:43 +0100

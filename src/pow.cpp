@@ -1,17 +1,49 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2016 The Bitcoin Core developers
+// Copyright (c) 2009-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "pow.h"
+#include <pow.h>
 
-#include "arith_uint256.h"
-#include "chain.h"
-#include "primitives/block.h"
-#include "uint256.h"
-#include "util.h"
+#include <chain.h>
+#include <primitives/block.h>
+#include <uint256.h>
+#include <util.h>
 
-unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
+//pos: find last block index up to pindex
+const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, const Consensus::Params& params, bool fProofOfStake)
+{
+    const int32_t TLRHeight = params.TLRHeight;
+
+    if (fProofOfStake)
+    {
+        while (pindex && pindex->pprev && !pindex->IsProofOfStake())
+        {
+            if(pindex->nHeight <= TLRHeight)
+                return nullptr;
+            pindex = pindex->pprev;
+        }
+    }
+    else
+    {
+        const uint32_t nProofOfWorkLimit = UintToArith256(params.powLimit).GetCompact();
+        const uint32_t nProofOfWorkLimitStart = UintToArith256(params.powLimitStart).GetCompact();
+        while (pindex->pprev && (pindex->IsProofOfStake() || (pindex->nPowHeight % params.DifficultyAdjustmentIntervalPow(pindex->nHeight) != 0 && (pindex->nBits == nProofOfWorkLimit)) || (pindex->nBits == nProofOfWorkLimitStart)))
+            pindex = pindex->pprev;
+    }
+
+    return pindex;
+}
+
+uint32_t GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params, bool fProofOfStake)
+{
+    assert(pindexLast != nullptr);
+    return fProofOfStake ?
+                GetNextWorkRequiredForPos(pindexLast, pblock, params) :
+                GetNextWorkRequiredForPow(pindexLast, pblock, params);
+}
+
+unsigned int GetNextWorkRequiredForPow(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
 {	
 	int nNextHeight = pindexLast->nHeight + 1;
 	
@@ -62,7 +94,7 @@ unsigned int DarkGravityWave(const CBlockIndex* pindexLast, const Consensus::Par
 
     arith_uint256 bnNew(PastDifficultyAverage);
 
-    int64_t _nTargetTimespan = CountBlocks * params.nPowTargetSpacing;
+    int64_t _nTargetTimespan = CountBlocks * params.nPowTargetSpacing(pindexLast->nHeight);
 
     if (nActualTimespan < _nTargetTimespan/3)
         nActualTimespan = _nTargetTimespan/3;
@@ -86,20 +118,20 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
     unsigned int nProofOfWorkLimit = UintToArith256(params.powLimitLegacy).GetCompact();
 
     // Only change once per difficulty adjustment interval
-    if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
+    if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentIntervalPow(pindexLast->nHeight+1) != 0)
     {
         if (params.fPowAllowMinDifficultyBlocks)
         {
             // Special difficulty rule for testnet:
             // If the new block's timestamp is more than 2* 10 minutes
             // then allow mining of a min-difficulty block.
-            if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing*2)
+            if (pblock->GetBlockTime() > pindexLast->GetBlockTime() + params.nPowTargetSpacing(pindexLast->nHeight)*2)
                 return nProofOfWorkLimit;
             else
             {
                 // Return the last non-special-min-difficulty-rules-block
                 const CBlockIndex* pindex = pindexLast;
-                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentInterval() != 0 && pindex->nBits == nProofOfWorkLimit)
+                while (pindex->pprev && pindex->nHeight % params.DifficultyAdjustmentIntervalPow(pindex->nHeight) != 0 && pindex->nBits == nProofOfWorkLimit)
                     pindex = pindex->pprev;
                 return pindex->nBits;
             }
@@ -110,9 +142,9 @@ unsigned int GetNextWorkRequiredBTC(const CBlockIndex* pindexLast, const CBlockH
     // Go back by what we want to be 14 days worth of blocks
     // Taler: This fixes an issue where a 51% attack can change difficulty at will.
     // Go back the full period unless it's the first retarget after genesis. Code courtesy of Art Forz
-    int blockstogoback = params.DifficultyAdjustmentInterval()-1;
-    if ((pindexLast->nHeight+1) != params.DifficultyAdjustmentInterval())
-        blockstogoback = params.DifficultyAdjustmentInterval();
+    int blockstogoback = params.DifficultyAdjustmentIntervalPow(pindexLast->nHeight+1)-1;
+    if ((pindexLast->nHeight+1) != params.DifficultyAdjustmentIntervalPow(pindexLast->nHeight+1))
+        blockstogoback = params.DifficultyAdjustmentIntervalPow(pindexLast->nHeight+1);
 
     // Go back by what we want to be 14 days worth of blocks
     const CBlockIndex* pindexFirst = pindexLast;
@@ -157,6 +189,33 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     return bnNew.GetCompact();
 }
 
+
+uint32_t GetNextWorkRequiredForPos(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params& params)
+{
+    assert((pindexLast->nHeight+1) > params.TLRHeight + params.TLRInitLim);
+
+    const CBlockIndex* pindexPrev = GetLastBlockIndex(pindexLast, params, true);
+    if (pindexPrev == nullptr)
+        return UintToArith256(params.nInitialHashTargetPoS).GetCompact();
+
+    const CBlockIndex* pindexPrevPrev = GetLastBlockIndex(pindexPrev->pprev, params, true);
+    if (pindexPrevPrev == nullptr || pindexPrevPrev->pprev == nullptr)
+        return UintToArith256(params.nInitialHashTargetPoS).GetCompact();
+
+    const int64_t nActualSpacing = pindexPrev->GetBlockTime() - pindexPrevPrev->GetBlockTime();
+    const int64_t nInterval = params.DifficultyAdjustmentIntervalPos();
+    arith_uint256 nProofOfWorkLimit = UintToArith256(params.powLimit);
+    arith_uint256 bnNew;
+    bnNew.SetCompact(pindexPrev->nBits);
+    bnNew *= ((nInterval - 1) * params.nPosTargetSpacing + nActualSpacing + nActualSpacing);
+    bnNew /= ((nInterval + 1) * params.nPosTargetSpacing);
+
+    if (bnNew > nProofOfWorkLimit)
+        bnNew = nProofOfWorkLimit;
+
+    return bnNew.GetCompact();
+}
+
 bool CheckProofOfWork(uint256 hash, int nHeight, unsigned int nBits, const Consensus::Params& params)
 {
     bool fNegative;
@@ -176,3 +235,5 @@ bool CheckProofOfWork(uint256 hash, int nHeight, unsigned int nBits, const Conse
 
     return true;
 }
+
+

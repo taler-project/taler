@@ -196,7 +196,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;امضای پیام...</translation>
@@ -299,7 +299,7 @@
     </message>
     <message>
         <source>Send coins to a Taler address</source>
-        <translation>ارسال وجه به نشانی Taler</translation>
+        <translation>ارسال وجه به نشانی بیت‌کوین</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -323,7 +323,7 @@
     </message>
     <message>
         <source>Taler</source>
-        <translation>Taler</translation>
+        <translation>بیت‌کوین</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -351,11 +351,11 @@
     </message>
     <message>
         <source>Sign messages with your Taler addresses to prove you own them</source>
-        <translation>برای اثبات اینکه پیام‌ها به شما تعلق دارند، آن‌ها را با نشانی Taler خود امضا کنید</translation>
+        <translation>برای اثبات اینکه پیام‌ها به شما تعلق دارند، آن‌ها را با نشانی بیت‌کوین خود امضا کنید</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Taler addresses</source>
-        <translation>برای حصول اطمینان از اینکه پیام با نشانی Taler مشخص شده امضا است یا خیر، پیام را شناسایی کنید</translation>
+        <translation>برای حصول اطمینان از اینکه پیام با نشانی بیت‌کوین مشخص شده امضا است یا خیر، پیام را شناسایی کنید</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -374,8 +374,8 @@
         <translation>نوارابزار برگه‌ها</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
-        <translation>درخواست پرداخت ( تولید کد کیوار و ادرس taler)</translation>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
+        <translation>درخواست پرداخت ( تولید کد کیوار و ادرس بیت کوین)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -386,8 +386,8 @@
         <translation>نمایش لیست آدرس های دریافت و لیبل ها</translation>
     </message>
     <message>
-        <source>Open a taler: URI or payment request</source>
-        <translation>بازکردن یک taler: آدرس یا درخواست پرداخت</translation>
+        <source>Open a Taler: URI or payment request</source>
+        <translation>بازکردن یک بیت کوین: آدرس یا درخواست پرداخت</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -395,7 +395,7 @@
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Taler network</source>
-        <translation><numerusform>%n ارتباط فعال با شبکهٔ Taler</numerusform></translation>
+        <translation><numerusform>%n ارتباط فعال با شبکهٔ بیت‌کوین</numerusform></translation>
     </message>
     <message>
         <source>Processing blocks on disk...</source>
@@ -643,7 +643,7 @@
     </message>
     <message>
         <source>The entered address "%1" is not a valid Taler address.</source>
-        <translation>نشانی وارد شده "%1" یک نشانی معتبر Taler نیست.</translation>
+        <translation>نشانی وارد شده "%1" یک نشانی معتبر بیت‌کوین نیست.</translation>
     </message>
     <message>
         <source>The entered address "%1" is already in the address book.</source>
@@ -853,7 +853,7 @@
     </message>
     <message>
         <source>Automatically open the Taler client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>باز کردن خودکار درگاه شبکهٔ Taler روی روترها. تنها زمانی کار می‌کند که روتر از پروتکل UPnP پشتیبانی کند و این پروتکل فعال باشد.</translation>
+        <translation>باز کردن خودکار درگاه شبکهٔ بیت‌کوین روی روترها. تنها زمانی کار می‌کند که روتر از پروتکل UPnP پشتیبانی کند و این پروتکل فعال باشد.</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -952,7 +952,7 @@
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Taler network after a connection is established, but this process has not completed yet.</source>
-        <translation>اطلاعات نمایش‌داده شده ممکن است قدیمی باشند. بعد از این که یک اتصال با شبکه برقرار شد، کیف پول شما به‌صورت خودکار با شبکهٔ Taler همگام‌سازی می‌شود. اما این روند هنوز کامل نشده است.</translation>
+        <translation>اطلاعات نمایش‌داده شده ممکن است قدیمی باشند. بعد از این که یک اتصال با شبکه برقرار شد، کیف پول شما به‌صورت خودکار با شبکهٔ بیت‌کوین همگام‌سازی می‌شود. اما این روند هنوز کامل نشده است.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1017,7 +1017,7 @@
     </message>
     <message>
         <source>Enter a Taler address (e.g. %1)</source>
-        <translation>یک آدرس Taler وارد کنید (مثلاً %1)</translation>
+        <translation>یک آدرس بیت‌کوین وارد کنید (مثلاً %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1477,7 +1477,7 @@
     </message>
     <message>
         <source>The Taler address to send the payment to</source>
-        <translation>نشانی Taler برای ارسال پرداخت به آن</translation>
+        <translation>نشانی بیت‌کوین برای ارسال پرداخت به آن</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -1530,7 +1530,7 @@
     </message>
     <message>
         <source>The Taler address to sign the message with</source>
-        <translation>نشانی Taler برای امضاء پیغام با آن</translation>
+        <translation>نشانی بیت‌کوین برای امضاء پیغام با آن</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -1582,11 +1582,11 @@
     </message>
     <message>
         <source>The Taler address the message was signed with</source>
-        <translation>نشانی Taler که پیغام با آن امضاء شده</translation>
+        <translation>نشانی بیت‌کوین که پیغام با آن امضاء شده</translation>
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Taler address</source>
-        <translation>برای حصول اطمینان از اینکه پیام با نشانی Taler مشخص شده امضا است یا خیر، پیام را شناسایی کنید</translation>
+        <translation>برای حصول اطمینان از اینکه پیام با نشانی بیت‌کوین مشخص شده امضا است یا خیر، پیام را شناسایی کنید</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -1676,7 +1676,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>گزینه‌ها:</translation>

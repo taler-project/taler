@@ -96,7 +96,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Chứ ký &amp; Tin nhắn...</translation>
@@ -258,7 +258,7 @@
         <translation>Thanh công cụ (toolbar)</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
         <translation>Yêu cầu thanh toán(tạo mã QR và địa chỉ Taler: URLs)</translation>
     </message>
     <message>
@@ -270,8 +270,8 @@
         <translation>Hiện thỉ danh sách các địa chỉ và nhãn đã dùng để nhận.</translation>
     </message>
     <message>
-        <source>Open a taler: URI or payment request</source>
-        <translation>Mở taler:URL hoặc yêu cầu thanh toán</translation>
+        <source>Open a Taler: URI or payment request</source>
+        <translation>Mở Taler:URL hoặc yêu cầu thanh toán</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -1012,7 +1012,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Lựa chọn:</translation>

@@ -76,7 +76,7 @@
     </message>
 </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>Semnează &amp;mesajul...</translation>
@@ -214,12 +214,12 @@
         <translation>&amp;Ajutor</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
-        <translation>Cerere plată (generează coduri QR și taler: URIs)</translation>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
+        <translation>Cerere plată (generează coduri QR și Taler: URIs)</translation>
     </message>
     <message>
-        <source>Open a taler: URI or payment request</source>
-        <translation>Deschide un taler: URI sau cerere de plată</translation>
+        <source>Open a Taler: URI or payment request</source>
+        <translation>Deschide un Taler: URI sau cerere de plată</translation>
     </message>
     <message>
         <source>%1 behind</source>
@@ -746,7 +746,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Taler Core</source>
         <translation>Taler Core</translation>

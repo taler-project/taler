@@ -1,36 +1,74 @@
-// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "walletframe.h"
+#include <qt/walletframe.h>
 
-#include "bitcoingui.h"
-#include "walletview.h"
+#include <qt/bitcoingui.h>
+#include <qt/walletview.h>
+#include <qt/mainmenupanel.h>
+#include <qt/stockinfo.h>
 
+#include <cassert>
 #include <cstdio>
 
 #include <QHBoxLayout>
 #include <QLabel>
+#include <QFontDatabase>
 
 WalletFrame::WalletFrame(const PlatformStyle *_platformStyle, BitcoinGUI *_gui) :
     QFrame(_gui),
     gui(_gui),
-    platformStyle(_platformStyle)
+    stockInfo(nullptr),
+    platformStyle(_platformStyle),
+    mainMenuPanel(nullptr)
 {
-    // Leave HBox hook for adding a list view later
-    QHBoxLayout *walletFrameLayout = new QHBoxLayout(this);
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-Bold");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-BoldItalic");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-Italic");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-Light");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-LightItalic");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-Medium");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-MediumItalic");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-Regular");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-Thin");
+    QFontDatabase::addApplicationFont(":/fonts/RobotoMono-ThinItalic");
+
     setContentsMargins(0,0,0,0);
+
+    QHBoxLayout *mainLayout = new QHBoxLayout(this);
+    mainLayout->setContentsMargins(0,0,0,0);
+    mainLayout->setSpacing(0);
+    setLayout(mainLayout);
+
+    mainMenuPanel = new MainMenuPanel(this, platformStyle, this);
+
     walletStack = new QStackedWidget(this);
-    walletFrameLayout->setContentsMargins(0,0,0,0);
-    walletFrameLayout->addWidget(walletStack);
+    walletStack->setContentsMargins(0,0,0,0);
+    walletStack->setStyleSheet("background-color: #e8e8e8;");
 
     QLabel *noWallet = new QLabel(tr("No wallet has been loaded."));
     noWallet->setAlignment(Qt::AlignCenter);
     walletStack->addWidget(noWallet);
+
+    mainLayout->addWidget(mainMenuPanel);
+    mainLayout->addWidget(walletStack);
+
+    stockInfo = new StockInfo(this);
 }
 
 WalletFrame::~WalletFrame()
 {
+    if (mainMenuPanel) {
+        delete mainMenuPanel;
+    }
+}
+
+void WalletFrame::setSyncProgress(double value, double max)
+{
+    QMap<QString, WalletView*>::const_iterator i;
+    for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
+        i.value()->setSyncProgress(value, max);
 }
 
 void WalletFrame::setClientModel(ClientModel *_clientModel)
@@ -48,16 +86,19 @@ bool WalletFrame::addWallet(const QString& name, WalletModel *walletModel)
     walletView->setClientModel(clientModel);
     walletView->setWalletModel(walletModel);
     walletView->showOutOfSyncWarning(bOutOfSync);
+    walletView->connectMainMenu(mainMenuPanel);
+    walletView->addPriceWidget(stockInfo);
 
      /* TODO we should goto the currently selected page once dynamically adding wallets is supported */
-    walletView->gotoOverviewPage();
+    //walletView->gotoOverviewPage();
     walletStack->addWidget(walletView);
     mapWalletViews[name] = walletView;
 
     // Ensure a walletView is able to show the main window
     connect(walletView, SIGNAL(showNormalIfMinimized()), gui, SLOT(showNormalIfMinimized()));
-
     connect(walletView, SIGNAL(outOfSyncWarningClicked()), this, SLOT(outOfSyncWarningClicked()));
+
+    mainMenuPanel->onWalletAdded();
 
     return true;
 }
@@ -69,6 +110,7 @@ bool WalletFrame::setCurrentWallet(const QString& name)
 
     WalletView *walletView = mapWalletViews.value(name);
     walletStack->setCurrentWidget(walletView);
+    assert(walletView);
     walletView->updateEncryptionStatus();
     return true;
 }
@@ -113,6 +155,10 @@ void WalletFrame::gotoOverviewPage()
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
         i.value()->gotoOverviewPage();
+
+    if (mainMenuPanel) {
+        mainMenuPanel->onLoadedOverviewPage();
+    }
 }
 
 void WalletFrame::gotoHistoryPage()
@@ -120,6 +166,10 @@ void WalletFrame::gotoHistoryPage()
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
         i.value()->gotoHistoryPage();
+
+    if (mainMenuPanel) {
+        mainMenuPanel->onLoadedTransactionPage();
+    }
 }
 
 void WalletFrame::gotoReceiveCoinsPage()
@@ -127,6 +177,10 @@ void WalletFrame::gotoReceiveCoinsPage()
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
         i.value()->gotoReceiveCoinsPage();
+
+    if (mainMenuPanel) {
+        mainMenuPanel->onLoadedReceivePage();
+    }
 }
 
 void WalletFrame::gotoSendCoinsPage(QString addr)
@@ -134,6 +188,10 @@ void WalletFrame::gotoSendCoinsPage(QString addr)
     QMap<QString, WalletView*>::const_iterator i;
     for (i = mapWalletViews.constBegin(); i != mapWalletViews.constEnd(); ++i)
         i.value()->gotoSendCoinsPage(addr);
+
+    if (mainMenuPanel) {
+        mainMenuPanel->onLoadedSendPage();
+    }
 }
 
 void WalletFrame::gotoSignMessageTab(QString addr)

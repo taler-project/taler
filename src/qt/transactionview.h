@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2016 The Bitcoin Core developers
+// Copyright (c) 2011-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef BITCOIN_QT_TRANSACTIONVIEW_H
 #define BITCOIN_QT_TRANSACTIONVIEW_H
 
-#include "guiutil.h"
+#include <qt/guiutil.h>
 
 #include <QWidget>
 #include <QKeyEvent>
@@ -13,6 +13,8 @@
 class PlatformStyle;
 class TransactionFilterProxy;
 class WalletModel;
+class StockInfo;
+class QHBoxLayout;
 
 QT_BEGIN_NAMESPACE
 class QComboBox;
@@ -36,6 +38,7 @@ public:
     explicit TransactionView(const PlatformStyle *platformStyle, QWidget *parent = 0);
 
     void setModel(WalletModel *model);
+    void addPriceWidget(StockInfo* stockInfo);
 
     // Date ranges for filter
     enum DateEnum
@@ -66,7 +69,7 @@ private:
     QComboBox *dateWidget;
     QComboBox *typeWidget;
     QComboBox *watchOnlyWidget;
-    QLineEdit *addressWidget;
+    QLineEdit *search_widget;
     QLineEdit *amountWidget;
 
     QMenu *contextMenu;
@@ -77,6 +80,8 @@ private:
     QDateTimeEdit *dateTo;
     QAction *abandonAction;
     QAction *bumpFeeAction;
+
+    QHBoxLayout *headLayout;
 
     QWidget *createDateRangeWidget();
 
@@ -112,8 +117,8 @@ public Q_SLOTS:
     void chooseDate(int idx);
     void chooseType(int idx);
     void chooseWatchonly(int idx);
-    void changedPrefix(const QString &prefix);
-    void changedAmount(const QString &amount);
+    void changedAmount();
+    void changedSearch();
     void exportClicked();
     void focusTransaction(const QModelIndex&);
 

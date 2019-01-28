@@ -14,6 +14,8 @@ class PlatformStyle;
 class SendCoinsRecipient;
 class WalletModel;
 class WalletView;
+class MainMenuPanel;
+class StockInfo;
 
 QT_BEGIN_NAMESPACE
 class QStackedWidget;
@@ -45,6 +47,7 @@ public:
 
     void showOutOfSyncWarning(bool fShow);
 
+    void setSyncProgress(double value, double max);
 Q_SIGNALS:
     /** Notify that the user has requested more information about the out-of-sync warning */
     void requestedSyncWarningInfo();
@@ -52,6 +55,7 @@ Q_SIGNALS:
 private:
     QStackedWidget *walletStack;
     BitcoinGUI *gui;
+    StockInfo *stockInfo;
     ClientModel *clientModel;
     QMap<QString, WalletView*> mapWalletViews;
 
@@ -60,7 +64,7 @@ private:
     const PlatformStyle *platformStyle;
 
     WalletView *currentWalletView();
-
+    MainMenuPanel *mainMenuPanel;
 public Q_SLOTS:
     /** Switch to overview (home) page */
     void gotoOverviewPage();

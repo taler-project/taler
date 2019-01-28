@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2015 The Bitcoin Core developers
+// Copyright (c) 2011-2015 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,6 +7,8 @@
 
 #include <QAbstractTableModel>
 #include <QStringList>
+
+enum OutputType : int;
 
 class AddressTablePriv;
 class WalletModel;
@@ -61,7 +63,9 @@ public:
     /* Add an address to the model.
        Returns the added address on success, and an empty string otherwise.
      */
-    QString addRow(const QString &type, const QString &label, const QString &address);
+    QString getReceiveFirstAddress();
+
+    QString addRow(const QString &type, const QString &label, const QString &address, const OutputType address_type);
 
     /* Look up label for address in address book, if not found return empty string.
      */
@@ -73,6 +77,10 @@ public:
     int lookupAddress(const QString &address) const;
 
     EditStatus getEditStatus() const { return editStatus; }
+
+    OutputType getDefaultAddressType() const;
+
+    void setDefaultAddressType(OutputType g_address_type_) const;
 
 private:
     WalletModel *walletModel;

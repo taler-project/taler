@@ -1,5 +1,35 @@
 <TS language="ja" version="2.1">
 <context>
+    <name>MainMenuPanel</name>
+    <message>
+        <source>Overview</source>
+        <translation>概要</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>送信</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>受信</translation>
+    </message>
+    <message>
+        <source>Transactions</source>
+        <translation>トランザクション</translation>
+    </message>
+</context>
+<context>
+    <name>PriceWidget</name>
+    <message>
+        <source>Price</source>
+        <translation>価格</translation>
+    </message>
+    <message>
+        <source>Volume (24)</source>
+        <translation>スコープ (24)</translation>
+    </message>
+</context>
+<context>
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
@@ -168,7 +198,7 @@
         <translation>ウォレットの暗号化を確認する</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR TALERS&lt;/b&gt;!</source>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR TLR&lt;/b&gt;!</source>
         <translation>警告: もしもあなたのウォレットを暗号化してパスフレーズを失ってしまったなら、&lt;b&gt;あなたの Taler はすべて失われます&lt;/b&gt;!</translation>
     </message>
     <message>
@@ -180,7 +210,7 @@
         <translation>ウォレットは暗号化されました</translation>
     </message>
     <message>
-        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your talers from being stolen by malware infecting your computer.</source>
+        <source>%1 will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your TLR from being stolen by malware infecting your computer.</source>
         <translation>暗号化処理を完了させるため %1 をいますぐ終了します。ウォレットの暗号化では、コンピュータに感染したマルウェアなどによるビットコインの盗難から完全に守ることはできないことにご注意ください。</translation>
     </message>
     <message>
@@ -414,8 +444,8 @@
         <translation>タブツールバー</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
-        <translation>支払いを要求する (QRコードとtaler:ではじまるURIを生成する)</translation>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
+        <translation>支払いを要求する (QRコードとTaler:ではじまるURIを生成する)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -426,8 +456,8 @@
         <translation>支払いを受け取るアドレスとラベルのリストを表示する</translation>
     </message>
     <message>
-        <source>Open a taler: URI or payment request</source>
-        <translation>taler: URIまたは支払いリクエストを開く</translation>
+        <source>Open a Taler: URI or payment request</source>
+        <translation>Taler: URIまたは支払いリクエストを開く</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -886,11 +916,11 @@
         <translation>フォーム</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the taler network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the Taler network, as detailed below.</source>
         <translation>確認できない最近のトランザクションがあるかもしれません。これによりウォレットの残高は不正確なものである可能性があります。この情報はウォレットが一度ビットコインネットワークへの同期が完了すると正確なものとなります。詳細は下記を参照してください。</translation>
     </message>
     <message>
-        <source>Attempting to spend talers that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
+        <source>Attempting to spend TLR that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
         <translation>まだ表示されていないトランザクションが影響するビットコインを使用しようとすると、ネットワークから認証がなされないでしょう。</translation>
     </message>
     <message>
@@ -1191,6 +1221,38 @@
 <context>
     <name>OverviewPage</name>
     <message>
+        <source>Balances:</source>
+        <translation>バランス:</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>送信</translation>
+    </message>
+    <message>
+        <source>Transactions</source>
+        <translation>トランザクション</translation>
+    </message>
+    <message>
+        <source>Sync progress:</source>
+        <translation>同期:</translation>
+    </message>
+    <message>
+        <source>Recent transactions:</source>
+        <translation>最近の取引:</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>日付</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>ラベル</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>量</translation>
+    </message>
+    <message>
         <source>Form</source>
         <translation>フォーム</translation>
     </message>
@@ -1270,7 +1332,7 @@
         <translation>支払いのリクエストのエラーです</translation>
     </message>
     <message>
-        <source>Cannot start taler: click-to-pay handler</source>
+        <source>Cannot start Taler: click-to-pay handler</source>
         <translation>Taler を起動できません: click-to-pay handler</translation>
     </message>
     <message>
@@ -1784,6 +1846,54 @@
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
+        <source>Generate Bech32 address</source>
+        <translation>Bech32形式のアドレスを生成</translation>
+    </message>
+    <message>
+        <source>Receive:</source>
+        <translation>受信:</translation>
+    </message>
+    <message>
+        <source>All fields are optional:</source>
+        <translation>すべてのフィールドはオプションです:</translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation>ラベル:</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>量:</translation>
+    </message>
+    <message>
+        <source>Message:</source>
+        <translation>メッセージ:</translation>
+    </message>
+    <message>
+        <source>REQUEST</source>
+        <translation>要求</translation>
+    </message>
+    <message>
+        <source>CLEAR ALL</source>
+        <translation>すべてクリア</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>日付</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>ラベル</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>メッセージ</translation>
+    </message>
+    <message>
+        <source>Requested amount</source>
+        <translation>要求額</translation>
+    </message>
+    <message>
         <source>&amp;Amount:</source>
         <translation>総額:(&amp;A)</translation>
     </message>
@@ -1828,7 +1938,7 @@
         <translation>クリア</translation>
     </message>
     <message>
-        <source>Requested payments history</source>
+        <source>Request payments history:</source>
         <translation>支払リクエスト履歴</translation>
     </message>
     <message>
@@ -1955,7 +2065,85 @@
     </message>
 </context>
 <context>
+    <name>LastSendTransactionView</name>
+    <message>
+        <source>To:</source>
+        <translation>に:</translation>
+    </message>
+    <message>
+        <source>When:</source>
+        <translation>いつ:</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>量:</translation>
+    </message>
+</context>
+<context>
+    <name>SendCoinsEntry</name>
+    <message>
+        <source>Fill the form:</source>
+        <translation>フォームに記入してください:</translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation>に:</translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation>ラベル:</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>量:</translation>
+    </message>
+    <message>
+        <source>CLEAR ALL</source>
+        <translation>すべてクリア</translation>
+    </message>
+    <message>
+        <source>Subtract fee from amount</source>
+        <translation>金額から引き落とす</translation>
+    </message>
+</context>
+<context>
     <name>SendCoinsDialog</name>
+    <message>
+        <source>Send:</source>
+        <translation>送信:</translation>
+    </message>
+    <message>
+        <source>Including transaction fee:</source>
+        <translation>取引手数料を含む:</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>変化する</translation>
+    </message>
+    <message>
+        <source>Are you sure ?</source>
+        <translation>本気ですか ?</translation>
+    </message>
+    <message>
+        <source>SEND</source>
+        <translation>送信</translation>
+    </message>
+    <message>
+        <source>Last:</source>
+        <translation>最終:</translation>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation>検証待ち</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>完了</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>エラー</translation>
+    </message>
     <message>
         <source>Send Coins</source>
         <translation>コインを送る</translation>
@@ -2037,8 +2225,8 @@
         <translation>最小手数料</translation>
     </message>
     <message>
-        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for taler transactions than the network can process.</source>
-        <translation>ブロックの容量に比べてトランザクション流量が少ないうちは最小手数料のみの支払で十分です。しかしながらネットワークが処理しきれないほどtalerトランザクションの需要がひとたび生まれてしまった場合には、永遠に検証がされないトランザクションになってしまう可能性があることに注意してください。</translation>
+        <source>Paying only the minimum fee is just fine as long as there is less transaction volume than space in the blocks. But be aware that this can end up in a never confirming transaction once there is more demand for Taler transactions than the network can process.</source>
+        <translation>ブロックの容量に比べてトランザクション流量が少ないうちは最小手数料のみの支払で十分です。しかしながらネットワークが処理しきれないほどTalerトランザクションの需要がひとたび生まれてしまった場合には、永遠に検証がされないトランザクションになってしまう可能性があることに注意してください。</translation>
     </message>
     <message>
         <source>(read the tooltip)</source>
@@ -2053,8 +2241,8 @@
         <translation>カスタム：</translation>
     </message>
     <message>
-        <source>(Smart fee not initialized yet. This usually takes a few blocks...)</source>
-        <translation>（スマート手数料はまだ初期化されていません。これにはおおよそ数ブロックほどかかります……）</translation>
+        <source>[ Smart fee not initialized yet. This usualy takes a few blocks ... ]</source>
+        <translation>スマートフィー 初期化されていません。これは通常 いくつかのブロックを取る</translation>
     </message>
     <message>
         <source>normal</source>
@@ -2264,7 +2452,7 @@
         <translation>この項目を削除する</translation>
     </message>
     <message>
-        <source>The fee will be deducted from the amount being sent. The recipient will receive less talers than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
+        <source>The fee will be deducted from the amount being sent. The recipient will receive less TLR than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
         <translation>送金する金額から手数料が差し引かれます。受取人は数量フィールドで指定した量よりも少ないビットコインを受け取ります。受取人が複数いる場合には、手数料は均等割されます。</translation>
     </message>
     <message>
@@ -2288,8 +2476,8 @@
         <translation>このアドレスに対するラベルを入力することで、使用済みアドレスの一覧に追加することができます</translation>
     </message>
     <message>
-        <source>A message that was attached to the taler: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Taler network.</source>
-        <translation>taler: URIに添付されていたメッセージです。これは参照用としてトランザクションとともに保存されます。注意：このメッセージはTalerネットワークを通して送信されるわけではありません。</translation>
+        <source>A message that was attached to the Taler: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Taler network.</source>
+        <translation>Taler: URIに添付されていたメッセージです。これは参照用としてトランザクションとともに保存されます。注意：このメッセージはTalerネットワークを通して送信されるわけではありません。</translation>
     </message>
     <message>
         <source>Pay To:</source>
@@ -2333,7 +2521,7 @@
         <translation>メッセージの署名 (&amp;S)</translation>
     </message>
     <message>
-        <source>You can sign messages/agreements with your addresses to prove you can receive talers sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
+        <source>You can sign messages/agreements with your addresses to prove you can receive TLR sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
         <translation>あなたの所有しているアドレスによりメッセージや合意書に署名をすることで、それらアドレスに対して送られたビットコインを受け取ることができることを証明できます。フィッシング攻撃により不正にあなたの識別情報を署名させられてしまうことを防ぐために、不明確なものやランダムなものに対して署名しないよう注意してください。合意することが可能な、よく詳細の記された文言にのみ署名するようにしてください。</translation>
     </message>
     <message>
@@ -2777,7 +2965,67 @@
     </message>
 </context>
 <context>
+    <name>ChangeFeeDialog</name>
+    <message>
+        <source>Enable Replace-By-Fee</source>
+        <translation>Replace-By-Fee を有効</translation>
+    </message>
+    <message>
+        <source>Transaction fee:</source>
+        <translation>取引手数料:</translation>
+    </message>
+    <message>
+        <source>Recommended:</source>
+        <translation>おすすめ:</translation>
+    </message>
+    <message>
+        <source>Confirmation time target:</source>
+        <translation>確認時間の目標:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>ノーマル</translation>
+    </message>
+    <message>
+        <source>Fast</source>
+        <translation>速い</translation>
+    </message>
+    <message>
+        <source>Custom:</source>
+        <translation>カスタム:</translation>
+    </message>
+    <message>
+        <source>Per Kbyte</source>
+        <translation>ペール Kbyte</translation>
+    </message>
+    <message>
+        <source>Pay only the required fee of 0.00001000 TLR/kB</source>
+        <translation>只支付所需的费用 0.00001000 TLR/kB</translation>
+    </message>
+    <message>
+        <source>[ Smart fee not initialized yet. This usualy takes a few blocks ... ]</source>
+        <translation>スマートフィー 初期化されていません。これは通常 いくつかのブロックを取る</translation>
+    </message>
+    <message numerus="yes">
+        <source>Estimated to begin confirmation within %n block(s).</source>
+        <translation><numerusform>%n ブロック以内に検証が開始されると予想されます。</numerusform></translation>
+    </message>
+</context>
+
+<context>
     <name>TransactionView</name>
+    <message>
+        <source>Transactions:</source>
+        <translation>トランザクション:</translation>
+    </message>
+    <message>
+        <source>Choose</source>
+        <translation>選択する</translation>
+    </message>
+    <message>
+        <source>Enter address, transaction id, or label to search</source>
+        <translation>住所を入力し、トランザクションID、検索するラベル</translation>
+    </message>
     <message>
         <source>All</source>
         <translation>すべて</translation>

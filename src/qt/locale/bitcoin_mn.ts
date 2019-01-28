@@ -60,7 +60,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>&amp;Зурвас хавсаргах...</translation>
@@ -127,7 +127,7 @@
     </message>
     <message>
         <source>Taler</source>
-        <translation>Taler</translation>
+        <translation>Биткойн</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -546,7 +546,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Сонголтууд:</translation>

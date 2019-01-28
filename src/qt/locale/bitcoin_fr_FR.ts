@@ -1,5 +1,35 @@
 <TS language="fr_FR" version="2.1">
 <context>
+    <name>MainMenuPanel</name>
+    <message>
+        <source>Overview</source>
+        <translation>Aperçu</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Envoyer</translation>
+    </message>
+    <message>
+        <source>Receive</source>
+        <translation>Recevoir</translation>
+    </message>
+    <message>
+        <source>Transactions</source>
+        <translation>Transactions</translation>
+    </message>
+</context>
+<context>
+    <name>PriceWidget</name>
+    <message>
+        <source>Price</source>
+        <translation>Prix</translation>
+    </message>
+    <message>
+        <source>Volume (24)</source>
+        <translation>Le volume (24)</translation>
+    </message>
+</context>
+<context>
     <name>AddressBookPage</name>
     <message>
         <source>Right-click to edit address or label</source>
@@ -43,11 +73,11 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation>Choisissez une adresse où envoyer les talers</translation>
+        <translation>Choisissez une adresse où envoyer les TLR</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation>Choisissez une adresse où recevoir les talers</translation>
+        <translation>Choisissez une adresse où recevoir les TLR</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
@@ -128,8 +158,8 @@
         <translation>Décrypter le porte-monnaie</translation>
     </message>
     <message>
-        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR TALERS&lt;/b&gt;!</source>
-        <translation>Attention : Si vous chiffrez votre portefeuille et que vous perdez votre mot de passe vous &lt;b&gt; PERDREZ TOUS VOS TALERS&lt;/b&gt; !</translation>
+        <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR TLR&lt;/b&gt;!</source>
+        <translation>Attention : Si vous chiffrez votre portefeuille et que vous perdez votre mot de passe vous &lt;b&gt; PERDREZ TOUS VOS TLR&lt;/b&gt; !</translation>
     </message>
     <message>
         <source>Wallet encrypted</source>
@@ -310,16 +340,16 @@
         <translation>Barre d'outils des onglets</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and taler: URIs)</source>
-        <translation>Demander des paiements (générer QR codes et taler: URIs)</translation>
+        <source>Request payments (generates QR codes and Taler: URIs)</source>
+        <translation>Demander des paiements (générer QR codes et Taler: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
         <translation>Montrer la liste des adresses d'envois utilisées et les étiquettes</translation>
     </message>
     <message>
-        <source>Open a taler: URI or payment request</source>
-        <translation>Ouvrir un taler: URI ou demande de paiement</translation>
+        <source>Open a Taler: URI or payment request</source>
+        <translation>Ouvrir un Taler: URI ou demande de paiement</translation>
     </message>
     <message>
         <source>&amp;Command-line options</source>
@@ -811,6 +841,38 @@
 <context>
     <name>OverviewPage</name>
     <message>
+        <source>Balances:</source>
+        <translation>Équilibre:</translation>
+    </message>
+    <message>
+        <source>Send</source>
+        <translation>Envoyer</translation>
+    </message>
+    <message>
+        <source>Transactions</source>
+        <translation>Transactions</translation>
+    </message>
+    <message>
+        <source>Sync progress:</source>
+        <translation>Synchronisation:</translation>
+    </message>
+    <message>
+        <source>Recent transactions:</source>
+        <translation>Transactions récentes:</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>La date</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Étiquette</translation>
+    </message>
+    <message>
+        <source>Amount</source>
+        <translation>Montant</translation>
+    </message>
+    <message>
         <source>Form</source>
         <translation>Formulaire</translation>
     </message>
@@ -1144,6 +1206,50 @@
 <context>
     <name>ReceiveCoinsDialog</name>
     <message>
+        <source>Receive:</source>
+        <translation>Recevoir:</translation>
+    </message>
+    <message>
+        <source>All fields are optional:</source>
+        <translation>Tous les champs sont optionnels:</translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation>Étiquette:</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Montant:</translation>
+    </message>
+    <message>
+        <source>Message:</source>
+        <translation>Message:</translation>
+    </message>
+    <message>
+        <source>REQUEST</source>
+        <translation>Demande</translation>
+    </message>
+    <message>
+        <source>CLEAR ALL</source>
+        <translation>Tout effacer</translation>
+    </message>
+    <message>
+        <source>Date</source>
+        <translation>La date</translation>
+    </message>
+    <message>
+        <source>Label</source>
+        <translation>Étiquette</translation>
+    </message>
+    <message>
+        <source>Message</source>
+        <translation>Message</translation>
+    </message>
+    <message>
+        <source>Requested amount</source>
+        <translation>Quantité exigée</translation>
+    </message>
+    <message>
         <source>&amp;Amount:</source>
         <translation>Montant :</translation>
     </message>
@@ -1164,7 +1270,7 @@
         <translation>Nettoyer</translation>
     </message>
     <message>
-        <source>Requested payments history</source>
+        <source>Request payments history:</source>
         <translation>Historique des demandes de paiements.</translation>
     </message>
     <message>
@@ -1245,9 +1351,87 @@
         <source>(no label)</source>
         <translation>(aucune étiquette)</translation>
     </message>
-    </context>
+</context>
+<context>
+    <name>LastSendTransactionView</name>
+    <message>
+        <source>To:</source>
+        <translation>À:</translation>
+    </message>
+    <message>
+        <source>When:</source>
+        <translation>Quand:</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Montant:</translation>
+    </message>
+</context>
+<context>
+    <name>SendCoinsEntry</name>
+    <message>
+        <source>Fill the form:</source>
+        <translation>Remplir le formulaire:</translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation>À:</translation>
+    </message>
+    <message>
+        <source>Label:</source>
+        <translation>Étiquette:</translation>
+    </message>
+    <message>
+        <source>Amount:</source>
+        <translation>Montant:</translation>
+    </message>
+    <message>
+        <source>CLEAR ALL</source>
+        <translation>Tout effacer</translation>
+    </message>
+    <message>
+        <source>Subtract fee from amount</source>
+        <translation>Soustraire les frais du montant</translation>
+    </message>
+</context>
 <context>
     <name>SendCoinsDialog</name>
+    <message>
+        <source>Send:</source>
+        <translation>Envoyer:</translation>
+    </message>
+    <message>
+        <source>Including transaction fee:</source>
+        <translation>Y compris les frais de transaction:</translation>
+    </message>
+    <message>
+        <source>Change</source>
+        <translation>Changement</translation>
+    </message>
+    <message>
+        <source>Are you sure ?</source>
+        <translation>Êtes-vous sûr ?</translation>
+    </message>
+    <message>
+        <source>SEND</source>
+        <translation>Envoyer</translation>
+    </message>
+    <message>
+        <source>Last:</source>
+        <translation>Dernier:</translation>
+    </message>
+    <message>
+        <source>Pending</source>
+        <translation>En attente</translation>
+    </message>
+    <message>
+        <source>Done</source>
+        <translation>Terminé</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation>Erreur</translation>
+    </message>
     <message>
         <source>Send Coins</source>
         <translation>Envoyer des pièces</translation>
@@ -1615,9 +1799,60 @@
         <source>(no label)</source>
         <translation>(aucune étiquette)</translation>
     </message>
-    </context>
+</context>
+<context>
+    <name>ChangeFeeDialog</name>
+    <message>
+        <source>Transaction fee:</source>
+        <translation>Frais de transaction:</translation>
+    </message>
+    <message>
+        <source>Recommended:</source>
+        <translation>Сonseillé:</translation>
+    </message>
+    <message>
+        <source>Confirmation time target:</source>
+        <translation>Cible de confirmation:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Ordinaire</translation>
+    </message>
+    <message>
+        <source>Fast</source>
+        <translation>Vite</translation>
+    </message>
+    <message>
+        <source>Custom:</source>
+        <translation>Douane:</translation>
+    </message>
+    <message>
+        <source>Per Kbyte</source>
+        <translation>Par Kbyte</translation>
+    </message>
+    <message>
+        <source>Pay only the required fee of 0.00001000 TLR/kB</source>
+        <translation>Ne payez que les frais de 0.00001000 TLR/kB</translation>
+    </message>
+    <message>
+        <source>[ Smart fee not initialized yet. This usualy takes a few blocks ... ]</source>
+        <translation>Smart fee pas encore initialisé. Ceci habituellement prend quelques blocs</translation>
+    </message>
+</context>
 <context>
     <name>TransactionView</name>
+    <message>
+        <source>Transactions:</source>
+        <translation>Transactions:</translation>
+    </message>
+    <message>
+        <source>Choose</source>
+        <translation>Choisir</translation>
+    </message>
+    <message>
+        <source>Enter address, transaction id, or label to search</source>
+        <translation>Entrer l'adresse, identifiant de transaction, ou étiquette pour rechercher</translation>
+    </message>
     <message>
         <source>All</source>
         <translation>Toutes</translation>

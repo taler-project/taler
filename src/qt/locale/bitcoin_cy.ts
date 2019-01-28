@@ -29,42 +29,10 @@
         <source>&amp;Delete</source>
         <translation>&amp;Dileu</translation>
     </message>
-    <message>
-        <source>Sending addresses</source>
-        <translation>Anfon cyfeiriadau</translation>
-    </message>
-    <message>
-        <source>Receiving addresses</source>
-        <translation>Derbyn cyfeiriadau</translation>
-    </message>
-    <message>
-        <source>&amp;Copy Address</source>
-        <translation>&amp;Copïo Cyfeiriad</translation>
-    </message>
-    <message>
-        <source>Copy &amp;Label</source>
-        <translation>Copïo &amp;Label</translation>
-    </message>
-    <message>
-        <source>Exporting Failed</source>
-        <translation>Methu Allforio</translation>
-    </message>
     </context>
 <context>
     <name>AddressTableModel</name>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Cyfeiriad</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(dim label)</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>AskPassphraseDialog</name>
     <message>
@@ -84,7 +52,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Synchronizing with network...</source>
         <translation>Cysoni â'r rhwydwaith...</translation>
@@ -112,14 +80,6 @@
     <message>
         <source>Quit application</source>
         <translation>Gadael rhaglen</translation>
-    </message>
-    <message>
-        <source>&amp;About %1</source>
-        <translation>&amp;Ynghylch %1</translation>
-    </message>
-    <message>
-        <source>Show information about %1</source>
-        <translation>Dangos gwybodaeth am %1</translation>
     </message>
     <message>
         <source>About &amp;Qt</source>
@@ -259,18 +219,6 @@
     <message>
         <source>Date</source>
         <translation>Dyddiad</translation>
-    </message>
-    <message>
-        <source>Copy address</source>
-        <translation>Copïo cyfeiriad</translation>
-    </message>
-    <message>
-        <source>Copy label</source>
-        <translation>Copïo label</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(dim label)</translation>
     </message>
     </context>
 <context>
@@ -413,10 +361,6 @@
         <source>&amp;Label:</source>
         <translation>&amp;Label:</translation>
     </message>
-    <message>
-        <source>Copy label</source>
-        <translation>Copïo label</translation>
-    </message>
     </context>
 <context>
     <name>ReceiveRequestDialog</name>
@@ -424,29 +368,9 @@
         <source>Copy &amp;Address</source>
         <translation>&amp;Cyfeiriad Copi</translation>
     </message>
-    <message>
-        <source>Address</source>
-        <translation>Cyfeiriad</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
     </context>
 <context>
     <name>RecentRequestsTableModel</name>
-    <message>
-        <source>Date</source>
-        <translation>Dyddiad</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(dim label)</translation>
-    </message>
     </context>
 <context>
     <name>SendCoinsDialog</name>
@@ -470,11 +394,7 @@
         <source>Confirm the send action</source>
         <translation>Cadarnhau'r gweithrediad anfon</translation>
     </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(dim label)</translation>
-    </message>
-</context>
+    </context>
 <context>
     <name>SendCoinsEntry</name>
     <message>
@@ -535,87 +455,15 @@
     </context>
 <context>
     <name>TransactionDesc</name>
-    <message>
-        <source>Date</source>
-        <translation>Dyddiad</translation>
-    </message>
     </context>
 <context>
     <name>TransactionDescDialog</name>
     </context>
 <context>
     <name>TransactionTableModel</name>
-    <message>
-        <source>Date</source>
-        <translation>Dyddiad</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Math</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
-        <source>(no label)</source>
-        <translation>(dim label)</translation>
-    </message>
     </context>
 <context>
     <name>TransactionView</name>
-    <message>
-        <source>Today</source>
-        <translation>Heddiw</translation>
-    </message>
-    <message>
-        <source>This week</source>
-        <translation>Yr wythnos hon</translation>
-    </message>
-    <message>
-        <source>This month</source>
-        <translation>Y mis hwn</translation>
-    </message>
-    <message>
-        <source>Last month</source>
-        <translation>Mis diwethaf</translation>
-    </message>
-    <message>
-        <source>This year</source>
-        <translation>Eleni</translation>
-    </message>
-    <message>
-        <source>Copy address</source>
-        <translation>Copïo cyfeiriad</translation>
-    </message>
-    <message>
-        <source>Copy label</source>
-        <translation>Copïo label</translation>
-    </message>
-    <message>
-        <source>Edit label</source>
-        <translation>Golygu label</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation>Dyddiad</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation>Math</translation>
-    </message>
-    <message>
-        <source>Label</source>
-        <translation>Label</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation>Cyfeiriad</translation>
-    </message>
-    <message>
-        <source>Exporting Failed</source>
-        <translation>Methu Allforio</translation>
-    </message>
     </context>
 <context>
     <name>UnitDisplayStatusBarControl</name>
@@ -628,13 +476,9 @@
     </context>
 <context>
     <name>WalletView</name>
-    <message>
-        <source>&amp;Export</source>
-        <translation>&amp;Allforio</translation>
-    </message>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>Opsiynau:</translation>

@@ -144,7 +144,7 @@
     <name>BanTableModel</name>
     </context>
 <context>
-    <name>BitcoinGUI</name>
+    <name>Taler GUI</name>
     <message>
         <source>Sign &amp;message...</source>
         <translation>امضا و پیام</translation>
@@ -207,7 +207,7 @@
     </message>
     <message>
         <source>Send coins to a Taler address</source>
-        <translation>ارسال کوین به آدرس taler</translation>
+        <translation>ارسال کوین به آدرس بیت کوین</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -227,7 +227,7 @@
     </message>
     <message>
         <source>Taler</source>
-        <translation>taler</translation>
+        <translation>بیت کوین</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -506,7 +506,7 @@
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Taler network after a connection is established, but this process has not completed yet.</source>
-        <translation>اطلاعات نمایش داده شده ممکن است روزآمد نباشد. wallet شما به صورت خودکار بعد از برقراری اتصال با شبکه taler به روز می شود اما این فرایند هنوز تکمیل نشده است.</translation>
+        <translation>اطلاعات نمایش داده شده ممکن است روزآمد نباشد. wallet شما به صورت خودکار بعد از برقراری اتصال با شبکه Taler به روز می شود اما این فرایند هنوز تکمیل نشده است.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -878,7 +878,7 @@
     <name>WalletView</name>
     </context>
 <context>
-    <name>bitcoin-core</name>
+    <name>Taler-core</name>
     <message>
         <source>Options:</source>
         <translation>انتخابها:</translation>

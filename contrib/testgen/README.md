@@ -1,6 +1,6 @@
 ### TestGen ###
 
-Utilities to generate test vectors for the data-driven Taler tests.
+Utilities to generate test vectors for the data-driven Bitcoin tests.
 
 Usage: 
 

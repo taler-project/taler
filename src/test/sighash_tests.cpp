@@ -1,19 +1,19 @@
-// Copyright (c) 2013-2016 The Bitcoin Core developers
+// Copyright (c) 2013-2017 The Taler Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include "consensus/tx_verify.h"
-#include "consensus/validation.h"
-#include "data/sighash.json.h"
-#include "hash.h"
-#include "script/interpreter.h"
-#include "script/script.h"
-#include "serialize.h"
-#include "streams.h"
-#include "test/test_bitcoin.h"
-#include "util.h"
-#include "utilstrencodings.h"
-#include "version.h"
+#include <consensus/tx_verify.h>
+#include <consensus/validation.h>
+#include <test/data/sighash.json.h>
+#include <hash.h>
+#include <script/interpreter.h>
+#include <script/script.h>
+#include <serialize.h>
+#include <streams.h>
+#include <test/test_bitcoin.h>
+#include <util.h>
+#include <utilstrencodings.h>
+#include <version.h>
 
 #include <iostream>
 
@@ -124,14 +124,13 @@ BOOST_AUTO_TEST_CASE(sighash_test)
     #if defined(PRINT_SIGHASH_JSON)
     std::cout << "[\n";
     std::cout << "\t[\"raw_transaction, script, input_index, hashType, signature_hash (result)\"],\n";
-    #endif
+    int nRandomTests = 500;
+    #else
     int nRandomTests = 50000;
-
-    #if defined(PRINT_SIGHASH_JSON)
-    nRandomTests = 500;
     #endif
     for (int i=0; i<nRandomTests; i++) {
         int nHashType = InsecureRand32();
+        nHashType &= ~SIGHASH_FORKID;
         CMutableTransaction txTo;
         RandomTransaction(txTo, (nHashType & 0x1f) == SIGHASH_SINGLE);
         CScript scriptCode;
@@ -191,6 +190,9 @@ BOOST_AUTO_TEST_CASE(sighash_from_data)
           nIn = test[2].get_int();
           nHashType = test[3].get_int();
           sigHashHex = test[4].get_str();
+
+          if (nHashType & SIGHASH_FORKID)
+            continue;
 
           CDataStream stream(ParseHex(raw_tx), SER_NETWORK, PROTOCOL_VERSION);
           stream >> tx;
