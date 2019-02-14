@@ -70,6 +70,10 @@ UniValue listminting(const JSONRPCRequest& request)
     for (std::map<uint256, CWalletTx>::iterator it = pwallet->mapWallet.begin(); it != pwallet->mapWallet.end(); ++it) {
         std::vector<KernelRecord> kernelCandidates = KernelRecord::DecomposeOutputs(pwallet, it->second);
         for (KernelRecord& kr : kernelCandidates) {
+			if (kr.spent) {
+				continue;
+			}
+			
             if (kr.coinAge < nMinWeight) {
                 continue;
             }
