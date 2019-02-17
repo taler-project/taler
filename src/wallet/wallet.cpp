@@ -2217,9 +2217,10 @@ void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const
             if (!CheckFinalTx(*pcoin->tx))
                 continue;
 
-            const CBlockIndex* blockIndex;
+            const CBlockIndex* blockIndex = nullptr;
             int nDepth = pcoin->GetDepthInMainChain(blockIndex);
-            if (nSpendTime > 0 && blockIndex->GetBlockTime() > nSpendTime)
+			
+            if (nSpendTime > 0 && (!blockIndex || blockIndex->GetBlockTime() > nSpendTime))
                 continue;  // pos: timestamp must not exceed spend time
 
             if (pcoin->IsCoinBase() && pcoin->GetBlocksToMaturity(nDepth) > 0)
