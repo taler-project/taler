@@ -542,32 +542,32 @@ void CoinControlDialog::updateLabels(WalletModel *model, QDialog* dialog)
     //if (model && model->getOptionsModel())
     //    nDisplayUnit = model->getOptionsModel()->getDisplayUnit();
 
-    //QLabel *l1 = dialog->findChild<QLabel *>("labelCoinControlQuantity");
-    QLabel *l2 = dialog->findChild<QLabel *>("label_8");
-    //QLabel *l3 = dialog->findChild<BitcoinAmountField *>("payAmount");
-    //QLabel *l3 = dialog->findChild<QLabel *>("labelCoinControlFee");
-    //QLabel *l4 = dialog->findChild<QLabel *>("labelCoinControlAfterFee");
-    //QLabel *l5 = dialog->findChild<QLabel *>("labelCoinControlBytes");
-    //QLabel *l7 = dialog->findChild<QLabel *>("labelCoinControlLowOutput");
-    //QLabel *l8 = dialog->findChild<QLabel *>("labelCoinControlChange");
+    QLabel *l1  = dialog->findChild<QLabel *>("labelCoinControlQuantity");
+    QLabel *l2  = dialog->findChild<QLabel *>("labelCoinControlAmount");
+    QLabel *l2_ = dialog->findChild<QLabel *>("label_8");
+    //QLabel *l3  = dialog->findChild<BitcoinAmountField *>("payAmount");
+    QLabel *l3  = dialog->findChild<QLabel *>("labelCoinControlFee");
+    QLabel *l4  = dialog->findChild<QLabel *>("labelCoinControlAfterFee");
+    QLabel *l5  = dialog->findChild<QLabel *>("labelCoinControlBytes");
+    QLabel *l7  = dialog->findChild<QLabel *>("labelCoinControlLowOutput");
+    QLabel *l8  = dialog->findChild<QLabel *>("labelCoinControlChange");
 
     // enable/disable "dust" and "change"
     //dialog->findChild<QLabel *>("labelCoinControlLowOutputText")->setEnabled(nPayAmount > 0);
     //dialog->findChild<QLabel *>("labelCoinControlLowOutput")    ->setEnabled(nPayAmount > 0);
     //dialog->findChild<QLabel *>("labelCoinControlChangeText")   ->setEnabled(nPayAmount > 0);
     //dialog->findChild<QLabel *>("labelCoinControlChange")       ->setEnabled(nPayAmount > 0);
-
     // stats
-    //l1->setText(QString::number(nQuantity));                                 // Quantity
-    if(l2!=nullptr)
-        l2->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount));        // Amount
+    if(l1 !=nullptr)l1 ->setText(QString::number(nQuantity));                                 // Quantity
+    if(l2 !=nullptr)l2 ->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount));        // Amount
+    if(l2_!=nullptr)l2_->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount));        // Amount
     //if(l3!=nullptr)
     //    l3->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAmount));        // Amount
-    //l3->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nPayFee));        // Fee
-    //l4->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAfterFee));      // After Fee
-    //l5->setText(((nBytes > 0) ? ASYMP_UTF8 : "") + QString::number(nBytes));        // Bytes
-    //l7->setText(fDust ? tr("yes") : tr("no"));                               // Dust
-    //l8->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nChange));        // Change
+    if(l3 !=nullptr)l3 ->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nPayFee));        // Fee
+    if(l4 !=nullptr)l4 ->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nAfterFee));      // After Fee
+    if(l5 !=nullptr)l5 ->setText(((nBytes > 0) ? ASYMP_UTF8 : "") + QString::number(nBytes)); // Bytes
+    if(l7 !=nullptr)l7 ->setText(fDust ? tr("yes") : tr("no"));                               // Dust
+    if(l8 !=nullptr)l8 ->setText(BitcoinUnits::formatWithUnit(nDisplayUnit, nChange));        // Change
     if (nPayFee > 0)
     {
         //l3->setText(ASYMP_UTF8 + l3->text());

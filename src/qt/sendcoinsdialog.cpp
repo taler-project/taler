@@ -1051,6 +1051,9 @@ void SendCoinsDialog::coinControlUpdateLabels()
     }
     else
     {
+        // actual coin control calculation
+        CoinControlDialog::updateLabels(model, this);
+
         // hide coin control stats
         //ui->labelCoinControlAutomaticallySelected->show();
         //ui->widgetCoinControl->hide();

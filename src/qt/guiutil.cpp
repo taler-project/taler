@@ -147,7 +147,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
     widget->setPlaceholderText(QObject::tr("Enter a Taler address (e.g. %1)").arg(
-        "ATSECm5ouBcmYFd4NNi49xyf7dJKXEQ34M"));
+        "TPvQj2LXfirRhqAvYpJXYukXiDbvMvqCVo"));
 #endif
     widget->setValidator(new BitcoinAddressEntryValidator(parent));
     widget->setCheckValidator(new BitcoinAddressCheckValidator(parent));

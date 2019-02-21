@@ -2449,6 +2449,11 @@ bool CChainState::DisconnectTip(CValidationState& state, const CChainParams& cha
         for (auto it = block.vtx.rbegin(); it != block.vtx.rend(); ++it) {
             disconnectpool->addTransaction(*it);
         }
+
+        // pos: don't put coinstake transaction into mempool 
+        if (block.IsProofOfStake())
+            disconnectpool->removeForBlock(std::vector<CTransactionRef>{ block.vtx[1] });
+
         while (disconnectpool->DynamicMemoryUsage() > MAX_DISCONNECTED_TX_POOL_SIZE * 1000) {
             // Drop the earliest entry, and remove its children from the mempool.
             auto it = disconnectpool->queuedTx.get<insertion_order>().begin();

@@ -266,6 +266,9 @@ static bool GetKernelStakeModifier(const CBlock& blockFrom, unsigned int nCoinSt
 //
 bool CheckStakeKernelHash(unsigned int nBits, const CBlock& blockFrom, unsigned int nTxPrevOffset, const CTxOut& txOutPrev, const COutPoint& prevout, uint32_t nTimeTx, uint256& hashProofOfStake, bool fPrintProofOfStake)
 {
+    if(!blockFrom.IsNewFormatBlock())
+        return false;
+
     uint32_t nTimeBlockFrom = blockFrom.GetBlockTime();
     if (nTimeBlockFrom + Params().GetConsensus().nStakeMinAge > nTimeTx) // Min age requirement
         return error("CheckStakeKernelHash() : min age violation");

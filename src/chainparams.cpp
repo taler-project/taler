@@ -138,12 +138,12 @@ public:
 
 
         // Note that of those with the service bits flag, most only support a subset of possible options
-        vSeeds.emplace_back("dnsseed.mikalair.me");
         vSeeds.emplace_back("dnsseed.talercrypto.com");
+        vSeeds.emplace_back("dnsseed.mikalair.me");
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,65);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,50);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,193);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 50);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1, 193);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
 
@@ -163,16 +163,18 @@ public:
                 {  20000, uint256S("0x82ad64f451be0375683efbdc7d94c1b970431b02a6a3e5057dd6cd0fb2022e70")},
                 {  30000, uint256S("0x0c14a678cb406be311c75938702e4ac567146d43bbd6d4f44e8d7a879a849424")},
                 {  70000, uint256S("0x8c25e55d05da7fd4e61383fcdd1232e8c8ddd85b220caefc10ac6c71bdf35b3e")},
-				{ 100000, uint256S("0xa6c3e93e8ac7b4af077a78c6ce27a1b2b8b7793a7737403bcb9e6f420a928547")}
+                { 100000, uint256S("0xa6c3e93e8ac7b4af077a78c6ce27a1b2b8b7793a7737403bcb9e6f420a928547")},
+                { 130001, uint256S("0x485aa2ba84c7b3b3292f655eb87baad17f81689fc851ff1bbc4461abc6aee61d")},
+                { 145000, uint256S("0x01b12183eef6102c765d1f37ea2129e91649f849fd2b18239e7d2f7276927930")},
             }
         };
 
         chainTxData = ChainTxData{
-                // Data as of block 33002e9b667d570238756280d105fdc9d9f5065e93eb80a4b21987e86ce9beb0 (height 126440).
-    			1548622453, // * UNIX timestamp of last known number of transactions
-                273567,       // * total number of transactions between genesis and that timestamp
+                // Data as of block 5dffe773046739a164aacf322f07cb3a0b45381b334d9e34c9c19dfcf3f3a36a (height 145928).
+                1550770015, // * UNIX timestamp of last known number of transactions
+                299376,       // * total number of transactions between genesis and that timestamp
                             //   (the tx=... number in the SetBestChain debug.log lines)
-    			0.0033  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
+                0.00554  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
         };
     }
 };
@@ -268,10 +270,10 @@ public:
 
         chainTxData = ChainTxData{
                 // Data as of block c206d8e1cd4b54bffff0e4a56b72a9c536da3580d82af209d6a4a4e6c6919ee4 (height 78423).
-    			0, // * UNIX timestamp of last known number of transactions
+                0, // * UNIX timestamp of last known number of transactions
                 0,       // * total number of transactions between genesis and that timestamp
                             //   (the tx=... number in the SetBestChain debug.log lines)
-    			0.0  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
+                0.0  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
         };
 
     }
@@ -367,10 +369,10 @@ public:
 
         chainTxData = ChainTxData{
                 // Data as of block c206d8e1cd4b54bffff0e4a56b72a9c536da3580d82af209d6a4a4e6c6919ee4 (height 78423).
-    			0, // * UNIX timestamp of last known number of transactions
+                0, // * UNIX timestamp of last known number of transactions
                 0,       // * total number of transactions between genesis and that timestamp
                             //   (the tx=... number in the SetBestChain debug.log lines)
-    			0.0  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
+                0.0  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
         };
     }
 };

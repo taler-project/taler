@@ -215,7 +215,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     coinbaseTx.vout.resize(1);
 
     if (pblock->IsProofOfStake()) {
-        coinbaseTx.vout[0].scriptPubKey = pblock->vtx[1]->vout[0].scriptPubKey;
+        coinbaseTx.vout[0].scriptPubKey = pblock->vtx[1]->vout[1].scriptPubKey;
         coinbaseTx.vout[0].nValue = nFees + nPosReward;
     } else {
         coinbaseTx.vout[0].scriptPubKey = scriptPubKeyIn;
