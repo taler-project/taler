@@ -2275,6 +2275,9 @@ void CWallet::AvailableCoins(std::vector<COutput> &vCoins, bool fOnlySafe, const
                 continue;
 
             for (unsigned int i = 0; i < pcoin->tx->vout.size(); i++) {
+				if (pcoin->tx->vout[i].nValue == 0)
+					continue; // we shouldn't select 0-outputs
+				
                 if (pcoin->tx->vout[i].nValue < nMinimumAmount || pcoin->tx->vout[i].nValue > nMaximumAmount)
                     continue;
 
@@ -3192,6 +3195,8 @@ bool CWallet::CreateCoinStake(const CKeyStore& keystore, unsigned int nBits, int
                 scriptPubKeyKernel = pcoin.txout.scriptPubKey;
 
                 nCoinStakeTime -= n;
+
+                nCredit += pcoin.txout.nValue;
 
                 txNew.vin.push_back(CTxIn(pcoin.outpoint.hash, pcoin.outpoint.n));
 
