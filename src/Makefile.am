@@ -130,7 +130,6 @@ BITCOIN_CORE_H = \
   rpc/blockchain.h \
   rpc/client.h \
   rpc/mining.h \
-  rpc/kernelrecord.h \
   rpc/protocol.h \
   rpc/safemode.h \
   rpc/server.h \
@@ -214,7 +213,6 @@ libbitcoin_server_a_SOURCES = \
   rest.cpp \
   rpc/blockchain.cpp \
   rpc/mining.cpp \
-  rpc/kernelrecord.cpp \
   rpc/minting.cpp \
   rpc/misc.cpp \
   rpc/net.cpp \

@@ -1,6 +1,5 @@
 #include <init.h>
 #include <rpc/server.h>
-#include <rpc/kernelrecord.h>
 #include <pow.h>
 #include <chainparams.h>
 #include <validation.h>
@@ -12,6 +11,42 @@
 #include <util.h>
 #include <wallet/wallet.h>
 #include <core_io.h>
+
+const int DAY = 24 * 60 * 60;
+
+double CalcMintingProbability(uint32_t nBits, int timeOffset, CAmount nValue, int64_t nTime) {
+    int64_t nTimeWeight = std::min((GetAdjustedTime() - nTime) + timeOffset, Params().GetConsensus().nStakeMaxAge) - Params().GetConsensus().nStakeMinAge;
+    arith_uint256 bnCoinDayWeight = arith_uint256(static_cast<uint64_t >(nValue)) * nTimeWeight / COIN / DAY;
+
+    arith_uint256 bnTargetPerCoinDay;
+    bnTargetPerCoinDay.SetCompact(nBits);
+
+    const double targetLimit = (~arith_uint256(0)).getdouble();
+    return (bnCoinDayWeight * bnTargetPerCoinDay).getdouble() / targetLimit;
+}
+
+double CalculateMintingProbabilityWithinPeriod(uint32_t nBits, int minutes, CAmount nValue, int64_t nTime)
+{
+    double prob = 1;
+    double p;
+    int d = minutes / (60 * 24); // Number of full days
+    int m = minutes % (60 * 24); // Number of minutes in the last day
+    int timeOffset = DAY;
+
+    // Probabilities for the first d days
+    for(int i = 0; i < d; i++, timeOffset += DAY) {
+        p = pow(1 - CalcMintingProbability(nBits, timeOffset, nValue, nTime), DAY);
+        prob *= p;
+    }
+
+    // Probability for the m minutes of the last day
+    p = pow(1 - CalcMintingProbability(nBits, timeOffset, nValue, nTime), 60 * m);
+    prob *= p;
+
+    prob = 1 - prob;
+    return prob;
+}
+
 
 UniValue listminting(const JSONRPCRequest& request)
 {
@@ -65,63 +100,72 @@ UniValue listminting(const JSONRPCRequest& request)
 
     UniValue ret(UniValue::VARR);
 
-    int minAge = Params().GetConsensus().nStakeMinAge / DAY;
+    int64_t minAge = Params().GetConsensus().nStakeMinAge / DAY;
 
-    for (std::map<uint256, CWalletTx>::iterator it = pwallet->mapWallet.begin(); it != pwallet->mapWallet.end(); ++it) {
-        std::vector<KernelRecord> kernelCandidates = KernelRecord::DecomposeOutputs(pwallet, it->second);
-        for (KernelRecord& kr : kernelCandidates) {
-			if (kr.spent) {
-				continue;
-			}
-			
-            if (kr.coinAge < nMinWeight) {
-                continue;
-            }
+    std::vector<COutput> vCoins;
+    pwallet->AvailableCoins(vCoins, true, nullptr, 0, 0, MAX_MONEY, MAX_MONEY, 0, 1);
 
-            if (nMaxWeight != 0 && kr.coinAge > nMaxWeight) {
-                continue;
-            }
-
-            if (nSkip != 0) {
-                --nSkip;
-                continue;
-            }
-
-            if (nCount != 0 && ret.size() >= (size_t)nCount) {
-                break;
-            }
-
-            std::string account;
-            CTxDestination adress = DecodeDestination(kr.address);
-            std::map<CTxDestination, CAddressBookData>::iterator mi = pwallet->mapAddressBook.find(adress);
-            if (mi != pwallet->mapAddressBook.end()) {
-                account = mi->second.name;
-            }
-
-            std::string status = "immature";
-            int attempts = 0;
-            if (kr.GetAge() >= minAge) {
-                status = "mature";
-                attempts = GetAdjustedTime() - kr.nTime - Params().GetConsensus().nStakeMinAge;
-            }
-
-            UniValue obj(UniValue::VOBJ);
-            obj.push_back(Pair("account",                   account));
-            obj.push_back(Pair("address",                   kr.address));
-            obj.push_back(Pair("txid",                      kr.hash.GetHex()));
-            obj.push_back(Pair("vout",                      kr.vout));
-            obj.push_back(Pair("time",                      kr.nTime));
-            obj.push_back(Pair("amount",                    ValueFromAmount(kr.nValue)));
-            obj.push_back(Pair("status",                    status));
-            obj.push_back(Pair("age-in-day",                kr.GetAge()));
-            obj.push_back(Pair("coin-day-weight",           kr.coinAge));
-            obj.push_back(Pair("minting-probability-10min", kr.CalculateMintingProbabilityWithinPeriod(nBits, 10)));
-            obj.push_back(Pair("minting-probability-24h",   kr.CalculateMintingProbabilityWithinPeriod(nBits, 60*24)));
-            obj.push_back(Pair("minting-probability-30d",   kr.CalculateMintingProbabilityWithinPeriod(nBits, 60*24*30)));
-            obj.push_back(Pair("minting-probability-90d",   kr.CalculateMintingProbabilityWithinPeriod(nBits, 60*24*90)));
-            obj.push_back(Pair("attempts",                  attempts));
-            ret.push_back(obj);
+    for (auto &out: vCoins) {
+        if (nSkip != 0) {
+            --nSkip;
+            continue;
         }
+
+        if (nCount != 0 && ret.size() >= (size_t)nCount) {
+            break;
+        }
+
+        if (nCount != 0 && ret.size() >= (size_t)nCount) {
+            break;
+        }
+
+        const CBlockIndex *pindex = nullptr;
+        out.tx->GetDepthInMainChain(pindex);
+
+        if (!pindex)
+            continue;
+
+        uint64_t nTime = pindex->nTime;
+        CAmount nValue = out.tx->tx->vout[out.i].nValue;
+
+        int64_t nDayWeight = (std::min((GetAdjustedTime() - (uint32_t)nTime), Params().GetConsensus().nStakeMaxAge) - Params().GetConsensus().nStakeMinAge) / DAY;
+        int64_t coinAge = std::max(nValue * nDayWeight / COIN, (int64_t)0);
+
+        if (coinAge < nMinWeight) {
+            continue;
+        }
+
+        if (nMaxWeight != 0 && coinAge > nMaxWeight) {
+            continue;
+        }
+
+        CTxDestination address;
+        const CScript& scriptPubKey = out.tx->tx->vout[out.i].scriptPubKey;
+        ExtractDestination(scriptPubKey, address);
+
+        std::string status = "immature";
+        int64_t attempts = 0;
+        if (((GetAdjustedTime() - nTime) / DAY) >= minAge) {
+            status = "mature";
+            attempts = GetAdjustedTime() - nTime - Params().GetConsensus().nStakeMinAge;
+        }
+
+        UniValue obj(UniValue::VOBJ);
+        obj.push_back(Pair("address",                   EncodeDestination(address)));
+        obj.push_back(Pair("txid",                      out.tx->GetHash().GetHex()));
+        obj.push_back(Pair("vout",                      out.i));
+        obj.push_back(Pair("time",                      nTime));
+        obj.push_back(Pair("amount",                    ValueFromAmount(nValue)));
+        obj.push_back(Pair("status",                    status));
+        obj.push_back(Pair("age-in-day",                ((GetAdjustedTime() - nTime) / DAY)));
+        obj.push_back(Pair("coin-day-weight",           coinAge));
+        obj.push_back(Pair("minting-probability-10min", CalculateMintingProbabilityWithinPeriod(nBits, 10, nValue, nTime)));
+        obj.push_back(Pair("minting-probability-24h",   CalculateMintingProbabilityWithinPeriod(nBits, 60*24, nValue, nTime)));
+        obj.push_back(Pair("minting-probability-30d",   CalculateMintingProbabilityWithinPeriod(nBits, 60*24*30, nValue, nTime)));
+        obj.push_back(Pair("minting-probability-90d",   CalculateMintingProbabilityWithinPeriod(nBits, 60*24*90, nValue, nTime)));
+        obj.push_back(Pair("attempts",                  attempts));
+        ret.push_back(obj);
+
     }
 
     return ret;
@@ -135,6 +179,6 @@ static const CRPCCommand commands[] =
 
 void RegisterMintingRPCCommands(CRPCTable &t)
 {
-    for (unsigned int vcidx = 0; vcidx < ARRAYLEN(commands); vcidx++)
-        t.appendCommand(commands[vcidx].name, &commands[vcidx]);
+    for (auto &command: commands)
+        t.appendCommand(command.name, &command);
 }
