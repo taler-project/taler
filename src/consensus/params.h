@@ -45,6 +45,7 @@ struct BIP9Deployment {
 /**
  * Parameters that influence chain consensus.
  */
+
 struct Params {
     uint256 hashGenesisBlock;
     int nSubsidyHalvingInterval;
@@ -55,7 +56,7 @@ struct Params {
     int TLRInitLim;
     int BIP34Height;
     uint256 BIP34Hash;
-    int64_t  BitcoinPostforkTime;
+    int64_t BitcoinPostforkTime;
     /** Block height at which BIP65 becomes active */
     int BIP65Height;
     /** Block height at which BIP66 becomes active */
@@ -70,17 +71,19 @@ struct Params {
     BIP9Deployment vDeployments[MAX_VERSION_BITS_DEPLOYMENTS];
     /** Proof of work parameters */
     uint256 powLimit;
-    uint256 powLimitStart;
     uint256 powLimitLegacy;
-    int NewDifficultyAdjustmentAlgoHeight;
     bool fPowAllowMinDifficultyBlocks;
     bool fPowNoRetargeting;
     int64_t nPowTargetSpacingBegin;
-    int64_t nPowTargetSpacing(uint32_t nHeight) const { return (nHeight>=(uint32_t)TLRHeight)?(nPowTargetSpacingBegin/5):nPowTargetSpacingBegin; }
+    int64_t getPowTargetSpacing(int nHeight) const {
+        return nHeight >= TLRHeight ? (nPowTargetSpacingBegin / 5) : nPowTargetSpacingBegin;
+    }
     int64_t nPowTargetTimespan;
     uint256 nMinimumChainWork;
     uint256 defaultAssumeValid;
-    int64_t DifficultyAdjustmentIntervalPow(uint32_t nHeight) const { return nPowTargetTimespan / nPowTargetSpacing(nHeight); }
+    int64_t DifficultyAdjustmentIntervalPow(int nHeight) const {
+        return nPowTargetTimespan / getPowTargetSpacing(nHeight);
+    }
 
     /** Proof of stake parameters **/
     int64_t nPosTargetSpacing;
@@ -89,12 +92,14 @@ struct Params {
     int64_t nStakeMinAge;
     int64_t nStakeMaxAge;
     uint256 nInitialHashTargetPoS;
-    int64_t DifficultyAdjustmentIntervalPos() const { return nPosTargetTimespan / nPosTargetSpacing; }
+    int64_t DifficultyAdjustmentIntervalPos() const {
+        return nPosTargetTimespan / nPosTargetSpacing;
+    }
 
     /** New proof of work difficulty adjustment parameters **/
-    int64_t nPowAveragingWindow;
-    int64_t AveragingWindowTimespan(uint32_t nHeight) const { return nPowAveragingWindow * nPowTargetSpacing(nHeight); }
-
+    int64_t nPowAveragingWindowv1;
+    int64_t nPowAveragingWindowv2;
+    int64_t nNewDiffAdjustmentAlgorithmHeight;
 };
 } // namespace Consensus
 

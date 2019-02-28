@@ -237,7 +237,7 @@ public:
 
     bool IsProofOfStake() const
     {
-        return (nFlags & BLOCK_PROOF_OF_STAKE);
+        return static_cast<bool>(nFlags & BLOCK_PROOF_OF_STAKE);
     }
 
     void SetProofOfStake()
@@ -260,7 +260,7 @@ public:
 
     bool GeneratedStakeModifier() const
     {
-        return (nFlags & BLOCK_STAKE_MODIFIER);
+        return static_cast<bool>(nFlags & BLOCK_STAKE_MODIFIER);
     }
 
     void SetStakeModifier(uint64_t nModifier, bool fGeneratedStakeModifier)
@@ -528,12 +528,12 @@ private:
 public:
     /** Returns the index entry for the genesis block of this chain, or nullptr if none. */
     CBlockIndex *Genesis() const {
-        return vChain.size() > 0 ? vChain[0] : nullptr;
+        return !vChain.empty() ? vChain[0] : nullptr;
     }
 
     /** Returns the index entry for the tip of this chain, or nullptr if none. */
     CBlockIndex *Tip() const {
-        return vChain.size() > 0 ? vChain[vChain.size() - 1] : nullptr;
+        return !vChain.empty() ? vChain[vChain.size() - 1] : nullptr;
     }
 
     /** Returns the index entry at a particular height in this chain, or nullptr if no such height exists. */
@@ -564,7 +564,7 @@ public:
 
     /** Return the maximal height in the chain. Is equal to chain.Tip() ? chain.Tip()->nHeight : -1. */
     int Height() const {
-        return vChain.size() - 1;
+        return static_cast<int>(vChain.size() - 1);
     }
 
     /** Set/initialize a chain with a given tip. */

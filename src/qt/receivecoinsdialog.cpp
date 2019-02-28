@@ -108,14 +108,12 @@ void ReceiveCoinsDialog::setModel(WalletModel *_model)
         columnResizingFixer->stretchColumnWidth(RecentRequestsTableModel::Message, 12, false);
         //
         ui->comboBox_useTypeAddress->clear();
-        ui->comboBox_useTypeAddress->addItem("Legacy");
-        ui->comboBox_useTypeAddress->addItem("SegWit");
         ui->comboBox_useTypeAddress->addItem("Bech32");
+        ui->comboBox_useTypeAddress->addItem("SegWit");
 
         // configure bech32 checkbox, disable if launched with legacy as default:
-        if (model->getDefaultAddressType() == OUTPUT_TYPE_LEGACY     )ui->comboBox_useTypeAddress->setCurrentIndex(0);
         if (model->getDefaultAddressType() == OUTPUT_TYPE_P2SH_SEGWIT)ui->comboBox_useTypeAddress->setCurrentIndex(1);
-        if (model->getDefaultAddressType() == OUTPUT_TYPE_BECH32     )ui->comboBox_useTypeAddress->setCurrentIndex(2);
+        if (model->getDefaultAddressType() == OUTPUT_TYPE_BECH32     )ui->comboBox_useTypeAddress->setCurrentIndex(0);
         /*
         if (model->getDefaultAddressType() == OUTPUT_TYPE_LEGACY) {
             ui->comboBox_useTypeAddress->setCheckState(Qt::Checked);
@@ -176,9 +174,8 @@ void ReceiveCoinsDialog::on_receiveButton_clicked()
     OutputType address_type = model->getDefaultAddressType();
     //
     switch (ui->comboBox_useTypeAddress->currentIndex()) {
-    case  0:address_type =OUTPUT_TYPE_LEGACY     ;break;
+    case  0:address_type =OUTPUT_TYPE_BECH32     ;break;
     case  1:address_type =OUTPUT_TYPE_P2SH_SEGWIT;break;
-    case  2:address_type =OUTPUT_TYPE_BECH32     ;break;
     default:address_type =OUTPUT_TYPE_DEFAULT    ;break;
     }
     /*

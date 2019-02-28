@@ -53,8 +53,7 @@ public:
 
     const Consensus::Params& GetConsensus() const { return consensus; }
     const CMessageHeader::MessageStartChars& MessageStart() const { return pchMessageStart; }
-    const CMessageHeader::MessageStartChars& MessageStartLegacy() const { return pchMessageStartLegacy; }
-    int GetDefaultPort(bool bootstrapping = false) const { return bootstrapping ? nBitcoinDefaultPort : nDefaultPort; }
+    int GetDefaultPort() const { return nDefaultPort; }
 
     const CBlock& GenesisBlock() const { return genesis; }
     /** Default value for -checkmempool and -checkblockindex argument */
@@ -78,13 +77,11 @@ public:
     const ChainTxData& TxData() const { return chainTxData; }
     void UpdateVersionBitsParameters(Consensus::DeploymentPos d, int64_t nStartTime, int64_t nTimeout);
 protected:
-    CChainParams() {}
+    CChainParams() = default;
 
     Consensus::Params consensus;
     CMessageHeader::MessageStartChars pchMessageStart;
-    CMessageHeader::MessageStartChars pchMessageStartLegacy;
     int nDefaultPort;
-    int nBitcoinDefaultPort;
     uint64_t nPruneAfterHeight;
     std::vector<std::string> vBootstrapSeeds;
     std::vector<std::string> vSeeds;

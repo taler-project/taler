@@ -1,4 +1,5 @@
 #include "stockinfo.h"
+#include "net.h"
 #include <qt/stockinfo.moc>
 
 #include <QWidget>
@@ -62,6 +63,7 @@ void StockInfo::requestInfo()
     request.setSslConfiguration(config);
     request.setUrl(QUrl("https://talercrypto.com/v1/ticker/taler/"));
     request.setHeader(QNetworkRequest::ServerHeader, "application/json");
+    request.setRawHeader("User-Agent", strSubVersion.c_str());
 
     network->get(request);
 }

@@ -156,13 +156,11 @@ void AddressBookPage::setModel(AddressTableModel *_model)
         ui->newAddressComboBox->setVisible(true);
         //
         ui->newAddressComboBox->clear();
-        ui->newAddressComboBox->addItem("Legacy");
-        ui->newAddressComboBox->addItem("SegWit");
         ui->newAddressComboBox->addItem("Bech32");
+        ui->newAddressComboBox->addItem("SegWit");
         // configure bech32 checkbox, disable if launched with legacy as default:
-        if (model->getDefaultAddressType() == OUTPUT_TYPE_LEGACY     )ui->newAddressComboBox->setCurrentIndex(0);
         if (model->getDefaultAddressType() == OUTPUT_TYPE_P2SH_SEGWIT)ui->newAddressComboBox->setCurrentIndex(1);
-        if (model->getDefaultAddressType() == OUTPUT_TYPE_BECH32     )ui->newAddressComboBox->setCurrentIndex(2);
+        if (model->getDefaultAddressType() == OUTPUT_TYPE_BECH32     )ui->newAddressComboBox->setCurrentIndex(0);
     }else
     {
         ui->newAddressComboBox->setVisible(false);
@@ -210,9 +208,8 @@ void AddressBookPage::on_newAddress_clicked()
     OutputType address_type = model->getDefaultAddressType();
     //
     switch (ui->newAddressComboBox->currentIndex()) {
-    case  0:address_type =OUTPUT_TYPE_LEGACY     ;break;
+    case  0:address_type =OUTPUT_TYPE_BECH32     ;break;
     case  1:address_type =OUTPUT_TYPE_P2SH_SEGWIT;break;
-    case  2:address_type =OUTPUT_TYPE_BECH32     ;break;
     default:address_type =OUTPUT_TYPE_DEFAULT    ;break;
     }
     //

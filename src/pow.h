@@ -27,4 +27,6 @@ uint32_t GetNextWorkRequiredForPos(const CBlockIndex* pindexLast, const CBlockHe
 /** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
 bool CheckProofOfWork(uint256 hash, int nHeight, unsigned int nBits, const Consensus::Params&);
 unsigned int DarkGravityWave(const CBlockIndex* pindexLast, const Consensus::Params& params);
+unsigned int DarkGravityWaveOld(const CBlockIndex* pindexLast, const Consensus::Params& params);
+
 #endif // BITCOIN_POW_H
