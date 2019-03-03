@@ -1,7 +1,9 @@
 Taler Core integration/staging tree
 =====================================
 
-[![Build Status](https://travis-ci.org/taler-project/taler.svg?branch=master)](https://travis-ci.org/taler-project/taler)
+[![Build Status](https://travis-ci.org/taler-project/taler.svg?branch=master)](https://travis-ci.org/taler-project/taler) 
+[![Docker Pulls](https://img.shields.io/docker/pulls/taler/taler.svg)](https://hub.docker.com/r/taler/taler)
+[![Docker Version](https://images.microbadger.com/badges/version/taler/taler.svg)](https://hub.docker.com/r/taler/taler)
 
 https://talercrypto.com
 
