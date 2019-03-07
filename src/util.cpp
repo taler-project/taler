@@ -955,13 +955,33 @@ int GetNumCores()
     return boost::thread::hardware_concurrency();
 #endif
 }
-
+/*
 std::string CopyrightAtomHolders(const std::string& strPrefix)
 {
-    std::string strCopyrightHolders = strPrefix + strprintf(_(COPYRIGHT_HOLDERS), _("Taler"));
+    std::string strCopyrightHolders = strPrefix + strprintf(_(COPYRIGHT_HOLDERS), _("Atom"));
+    return strCopyrightHolders;
+}
+*/
+std::string CopyrightHolders(const std::string& strPrefix)
+{
+    std::string strCopyrightHolders = strPrefix + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
+
+    // Check for untranslated substitution to make sure Atom Core copyright is not removed by accident
+    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Atom Core") == std::string::npos) {
+        std::string strYear = strPrefix;
+        strYear.replace(strYear.find("2017"), sizeof("2019")-1, "2018");
+        strCopyrightHolders += "\n" + strYear + "The Atom Core developers";
+    }
+    // Check for untranslated substitution to make sure Bitcoin Core copyright is not removed by accident
+    if (strprintf(COPYRIGHT_HOLDERS, COPYRIGHT_HOLDERS_SUBSTITUTION).find("Bitcoin Core") == std::string::npos) {
+        std::string strYear = strPrefix;
+        strYear.replace(strYear.find("2017"), sizeof("2019")-1, "2009");
+        strCopyrightHolders += "\n" + strYear + "The Bitcoin Core developers";
+    }
     return strCopyrightHolders;
 }
 
+/*
 std::string CopyrightHolders(const std::string& strPrefix)
 {
     std::string strCopyrightHolders = strPrefix + strprintf(_(COPYRIGHT_HOLDERS), _(COPYRIGHT_HOLDERS_SUBSTITUTION));
@@ -972,6 +992,7 @@ std::string CopyrightHolders(const std::string& strPrefix)
     }
     return strCopyrightHolders;
 }
+*/
 
 // Obtain the application startup time (used for uptime calculation)
 int64_t GetStartupTime()
