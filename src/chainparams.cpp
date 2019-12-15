@@ -76,6 +76,8 @@ public:
         strNetworkID = "main";
         consensus.nSubsidyHalvingInterval = 210000 * 5;
 
+        consensus.BIP34Height = 0;
+        consensus.BIP34Hash = uint256S("0xc079fd1ae86223e1522928776899d46e329da7919ca1e11be23643c67dd05d5f");
 
         consensus.powLimit = uint256S("00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
         consensus.powLimitLegacy = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
@@ -106,6 +108,8 @@ public:
 
         consensus.TLRHeight = 130000;
         consensus.TLRInitLim = 300;
+	consensus.POSLimitOkHeight = 730000;
+
         // Deployment of SegWit (BIP141, BIP143, and BIP147)
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].bit = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nStartTime = 1512086401; // December 01, 2017
@@ -168,6 +172,9 @@ public:
                         {100000, uint256S("0xa6c3e93e8ac7b4af077a78c6ce27a1b2b8b7793a7737403bcb9e6f420a928547")},
                         {130001, uint256S("0x485aa2ba84c7b3b3292f655eb87baad17f81689fc851ff1bbc4461abc6aee61d")},
                         {145000, uint256S("0x01b12183eef6102c765d1f37ea2129e91649f849fd2b18239e7d2f7276927930")},
+                        {500000, uint256S("0xdbd781e1a5c96e38c6f37e85ddc79f808696ff38a107334b1d2aa0d1f3c54886")},
+			{728634, uint256S("0x33e82f201a0b4074af53080d26c4092e6284bdead512b8c189b9c53526078d77")},
+
                 }
         };
 

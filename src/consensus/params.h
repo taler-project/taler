@@ -54,6 +54,7 @@ struct Params {
 
     int TLRHeight;
     int TLRInitLim;
+    int POSLimitOkHeight;
     int BIP34Height;
     uint256 BIP34Hash;
     int64_t BitcoinPostforkTime;

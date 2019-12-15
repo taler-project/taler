@@ -272,6 +272,14 @@ GetNextWorkRequiredForPos(const CBlockIndex *pindexLast, const CBlockHeader *pbl
     arith_uint256 bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
     bnNew *= ((nInterval - 1) * params.nPosTargetSpacing + nActualSpacing + nActualSpacing);
+    //overflow fix
+    if((pindexLast->nHeight + 1)>=params.POSLimitOkHeight)
+    {
+        arith_uint256 powLimit = UintToArith256(uint256S("dfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"));
+        if (bnNew > powLimit)
+            bnNew = powLimit;
+    }
+    //
     bnNew /= ((nInterval + 1) * params.nPosTargetSpacing);
 
     if (bnNew > nProofOfWorkLimit)
