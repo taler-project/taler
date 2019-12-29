@@ -117,11 +117,11 @@ public:
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S(
-                "0x000000000000000000000000000000000000000000000000007e63c1ac2bf62f"); //100000
+                "0x000000000000000000000000000000000000000000000000010eefae64d303f3"); //750962
 
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S(
-                "0xa6c3e93e8ac7b4af077a78c6ce27a1b2b8b7793a7737403bcb9e6f420a928547"); //100000
+                "0xbf6734dbdb690f72905f7987db147f182d6ab090532e066000cb734b150ff8c0"); //750962
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -174,16 +174,17 @@ public:
                         {145000, uint256S("0x01b12183eef6102c765d1f37ea2129e91649f849fd2b18239e7d2f7276927930")},
                         {500000, uint256S("0xdbd781e1a5c96e38c6f37e85ddc79f808696ff38a107334b1d2aa0d1f3c54886")},
 			{728634, uint256S("0x33e82f201a0b4074af53080d26c4092e6284bdead512b8c189b9c53526078d77")},
+			{752000, uint256S("0xa3d0b940f1c9254e70304652d30a516cb5df4e4d5c3888e17f0043e49f1ac7e1")},
 
                 }
         };
 
         chainTxData = ChainTxData{
-                // Data as of block 5dffe773046739a164aacf322f07cb3a0b45381b334d9e34c9c19dfcf3f3a36a (height 145928).
-                1550770015, // * UNIX timestamp of last known number of transactions
-                299376,       // * total number of transactions between genesis and that timestamp
+                // Data as of block 7131379172bbf06b46c1b62078b34479d897387425b3a52d22796f7180b4d966 (height 751082).
+                1576747588, // * UNIX timestamp of last known number of transactions
+                1062224,       // * total number of transactions between genesis and that timestamp
                 //   (the tx=... number in the SetBestChain debug.log lines)
-                0.00554  // * estimated number of transactions per second after that timestamp // 206710/(1533041886-1505338813=27703073)
+                0.0148753  // * estimated number of transactions per second after that timestamp // 1062224/(1576747588-1505338813=71408775)
         };
     }
 };
