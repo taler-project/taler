@@ -236,6 +236,11 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     //ui->labelTotal->setText(BitcoinUnits::format(unit, balance + unconfirmedBalance + immatureBalance, false, BitcoinUnits::separatorAlways));
     QString textTotal = BitcoinUnits::format(BitcoinUnits::Unit::TLR_rounded, balance + unconfirmedBalance, false, BitcoinUnits::separatorAlways);
+    // fix for long balance in Total window
+    if (textTotal.length() > 10) {
+        textTotal.remove(10, textTotal.length() - 10);
+    }
+    //
     int labelTotalMaxWidth = ui->frameTotal->width() - ui->labelTotalCaption->width() - ui->labelTotalUnit->width();
     int fontSize = GUIUtil::getFontPixelSize(textTotal, 5, 28, labelTotalMaxWidth, QString("Roboto Mono"), 700);
     QString totalLabelStyle = "background-color: transparent; color: rgb(255, 198, 0); font-family: \"Roboto Mono\"; font-weight: 700; font-size: ";
