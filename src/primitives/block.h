@@ -143,7 +143,9 @@ public:
     inline void SerializationOp(Stream& s, Operation ser_action) {
         READWRITE(*(CBlockHeader*)this);
         READWRITE(vtx);
-        if (IsProofOfStake()) {
+        if (s.GetVersion() & SERIALIZE_BLOCK_LEGACY) {
+	  // nothing
+	} else if (IsProofOfStake()) {
             READWRITE(vchBlockSig);
         } else if (ser_action.ForRead()) {
             vchBlockSig.clear();
