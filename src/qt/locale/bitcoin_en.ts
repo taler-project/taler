@@ -3068,7 +3068,7 @@
     </message>
     <message>
         <location line="+54"/>
-        <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Taler network.</source>
+        <source>A message that was attached to the taler: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Taler network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
